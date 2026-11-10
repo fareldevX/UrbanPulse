@@ -48,7 +48,6 @@
         <div>
           <a class="brand" href="index.html"><span class="brand-mark">${ico.pulse}</span><span class="brand-name">WargaCare</span></a>
           <p class="footer-desc">Platform civic tech independen yang memberdayakan warga untuk melaporkan, memantau, dan memilih prioritas perbaikan infrastruktur kota.</p>
-          <span class="status-chip"><i></i>Status sistem: Semua layanan beroperasi normal</span>
           <div class="socials">
             <a href="#" aria-label="X">${ico.x}</a><a href="#" aria-label="Instagram">${ico.ig}</a><a href="https://github.com/fareldevX/UrbanPulse" target="_blank" rel="noopener" aria-label="Repositori GitHub WargaCare">${ico.gh}</a>
           </div>
@@ -78,6 +77,33 @@
   mount('app-footer', footer);
  
   const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+
+  /* Halaman yang belum dibuat (peta, statistik, tentang, form laporan) belum ada di repo.
+     Selama belum ada, tautan diberi keterangan jelas dan tidak membuka halaman kosong.
+     Hapus nama berkas dari daftar ini begitu halamannya selesai. */
+  const SOON = ['peta.html', 'statistik.html', 'tentang.html', 'lapor.html'];
+  let noticeEl, noticeTimer;
+  const showNotice = pesan => {
+    if (!noticeEl) {
+      noticeEl = document.createElement('div');
+      noticeEl.className = 'notice';
+      noticeEl.setAttribute('role', 'status');
+      noticeEl.setAttribute('aria-live', 'polite');
+      document.body.appendChild(noticeEl);
+    }
+    noticeEl.textContent = pesan;
+    noticeEl.classList.add('show');
+    clearTimeout(noticeTimer);
+    noticeTimer = setTimeout(() => noticeEl.classList.remove('show'), 4500);
+  };
+  document.querySelectorAll('a[href]').forEach(a => {
+    const berkas = a.getAttribute('href').split('?')[0].split('/').pop();
+    if (!SOON.includes(berkas)) return;
+    const judul = a.textContent.trim();
+    a.classList.add('link-soon');
+    a.setAttribute('title', 'Halaman ini belum tersedia');
+    a.addEventListener('click', e => { e.preventDefault(); showNotice('Halaman ' + judul + ' belum tersedia.'); });
+  });
  
   const nav = document.getElementById('navbar'), links = document.getElementById('navLinks'),
         toggle = document.getElementById('navToggle');

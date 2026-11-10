@@ -1,43 +1,32 @@
 (function () {
-  /* Video cinematic: letakkan file di assets/hero.mp4. Jika tidak ada, latar animasi kota tetap tampil. */
-  const v = document.getElementById('heroVideo');
-  if (v) v.addEventListener('canplay', () => v.classList.add('loaded'));
- 
-  /* Siluet kota (fallback / lapisan bawah) */
-  const city = document.getElementById('heroCity');
-  if (city) {
-    let x = 0, s = '', seed = 7;
-    const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-    while (x < 1600) {
-      const w = 40 + rnd() * 70, h = 80 + rnd() * 260;
-      s += `<rect x="${x}" y="${400 - h}" width="${w}" height="${h}" fill="#0d1526" stroke="rgba(52,211,153,.12)"/>`;
-      for (let i = 0; i < 9; i++) if (rnd() > .55)
-        s += `<rect x="${x + 6 + rnd() * (w - 16)}" y="${400 - h + 10 + rnd() * (h - 30)}" width="4" height="6" fill="rgba(52,211,153,${.25 + rnd() * .5})"/>`;
-      x += w + 4;
-    }
-    city.innerHTML = s;
-  }
- 
   /* Feed laporan di hero (data contoh) */
   const feed = document.getElementById('feedList');
   const items = [
-    ['Jalan berlubang, Jl. Kaliurang', 'pending', 'Pending', 'baru saja'],
-    ['Lampu PJU mati, Gejayan', 'progress', 'Diproses', '3 mnt lalu'],
-    ['Trotoar amblas, Malioboro', 'resolved', 'Resolved', '12 mnt lalu'],
-    ['Halte rusak, Jl. Solo', 'pending', 'Pending', '20 mnt lalu'],
-    ['Drainase tersumbat, Sleman', 'progress', 'Diproses', '31 mnt lalu']
+    ['Jalan berlubang, Jl. Prof. Moh. Yamin', 'pending', 'Pending', 'baru saja'],
+    ['Lampu PJU mati, Slawi', 'progress', 'Diproses', '3 mnt lalu'],
+    ['Trotoar amblas, Pasar Slawi', 'resolved', 'Resolved', '12 mnt lalu'],
+    ['Halte rusak, Jl. Raya Tegal', 'pending', 'Pending', '20 mnt lalu'],
+    ['Drainase tersumbat, Adiwerna', 'progress', 'Diproses', '31 mnt lalu']
   ];
   if (feed) {
-    let i = 0;
-    const add = () => {
-      const [t, c, l, w] = items[i++ % items.length];
+    const baris = d => {
       const li = document.createElement('li');
-      li.innerHTML = `<strong>${t}</strong><span style="display:flex;justify-content:space-between;align-items:center"><span class="badge ${c}">${l}</span><small>${w}</small></span>`;
-      feed.prepend(li);
-      while (feed.children.length > 3) feed.lastChild.remove();
+      li.innerHTML = `<strong>${d[0]}</strong><span style="display:flex;justify-content:space-between;align-items:center"><span class="badge ${d[1]}">${d[2]}</span><small>${d[3]}</small></span>`;
+      return li;
     };
-    add(); add(); add();
-    if (!matchMedia('(prefers-reduced-motion:reduce)').matches) setInterval(add, 3500);
+    const tampilkan = daftar => {
+      feed.textContent = '';
+      if (!daftar.length) { /* state kosong */
+        feed.innerHTML = '<li class="feed-state">Belum ada laporan di sekitarmu.</li>';
+        return;
+      }
+      daftar.slice(0, 3).forEach(d => feed.appendChild(baris(d)));
+    };
+    try {
+      tampilkan(items);
+    } catch (e) { /* state gagal */
+      feed.innerHTML = '<li class="feed-state">Laporan gagal dimuat. Muat ulang halaman ini.</li>';
+    }
   }
  
   /* Hitung angka statistik saat terlihat */
