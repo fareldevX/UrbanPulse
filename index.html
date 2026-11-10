@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WargaCare - Platform Partisipasi Publik</title>
+  <meta name="description" content="Laporkan jalan rusak, fasilitas umum, dan lampu penerangan. Pantau progres dan tentukan prioritas bersama warga.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+  <div id="app-navbar"></div>
+ 
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="beranda">
+      <div class="hero-media" aria-hidden="true">
+        <img class="hero-img" src="assets/hero.jpg" alt="" fetchpriority="high">
+        <div class="hero-shade"></div>
+      </div>
+      <div class="container">
+        <div class="hero-in">
+          <span class="badge">Smart City &amp; Urban Innovation</span>
+          <h1>Kota yang lebih baik dimulai dari laporanmu.</h1>
+          <p class="hero-lead">Tandai jalan rusak, fasilitas umum, dan lampu penerangan di peta. Pantau penanganannya sampai selesai, lalu tentukan bersama warga mana yang diperbaiki lebih dulu.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary btn-lg" href="lapor.html">Mulai Lapor Sekarang</a>
+            <a class="btn btn-outline btn-lg" href="peta.html">Lihat Peta Laporan</a>
+          </div>
+          <div class="hero-meta">
+            <div><b>12.480</b>laporan masuk</div>
+            <div><b>71%</b>sudah selesai</div>
+            <div><b>34</b>kelurahan aktif</div>
+          </div>
+        </div>
+        <aside class="feed hero-in" aria-label="Laporan terbaru">
+          <div class="feed-head"><span>Laporan terbaru</span><span class="badge">Live</span></div>
+          <ul id="feedList"></ul>
+        </aside>
+      </div>
+    </section>
+ 
+    <!-- STATISTIK -->
+    <div class="stats">
+      <div class="container grid">
+        <div class="stat"><b data-count="12480">0</b><span>Laporan diterima</span></div>
+        <div class="stat"><b data-count="8.2" data-dec="1" data-suffix=" hari">0</b><span>Rata-rata waktu penanganan</span></div>
+        <div class="stat"><b data-count="71" data-suffix="%">0</b><span>Laporan berstatus Resolved</span></div>
+        <div class="stat"><b data-count="25400">0</b><span>Suara komunitas</span></div>
+      </div>
+    </div>
+ 
+    <!-- TENTANG -->
+    <section class="section" id="tentang">
+      <div class="container about">
+        <div>
+          <h2>Laporan warga sering hilang di tengah jalan.</h2>
+          <p>Banyak keluhan infrastruktur berhenti di kolom komentar atau grup chat. WargaCare mengumpulkannya di satu peta, mencatat setiap tahap penanganan, dan membuat prioritas perbaikan bisa dilihat oleh semua orang.</p>
+          <p>Platform ini dibuat sebagai solusi civic tech yang mendukung dua tujuan pembangunan berkelanjutan.</p>
+        </div>
+        <div class="sdg">
+          <div class="card"><span class="sdg-no">9</span><div><h3>Industri, Inovasi, dan Infrastruktur</h3><p>Data lapangan dari warga membantu perawatan infrastruktur menjadi lebih cepat dan tepat sasaran.</p></div></div>
+          <div class="card"><span class="sdg-no">11</span><div><h3>Kota dan Permukiman yang Berkelanjutan</h3><p>Warga ikut menentukan fasilitas publik yang aman, layak, dan mudah diakses.</p></div></div>
+        </div>
+      </div>
+    </section>
+ 
+    <!-- FITUR -->
+    <section class="section" id="fitur" style="padding-top:0">
+      <div class="container">
+        <div class="sec-head"><h2>Tiga hal yang membuat laporan berujung perbaikan</h2></div>
+ 
+        <div class="feature">
+          <div class="f-text">
+            <h3 style="font-size:var(--fs-xl)">Peta interaktif berbasis lokasi</h3>
+            <p>Setiap laporan menjadi titik di peta dengan kategori dan status yang jelas, sehingga petugas dan warga melihat sebaran masalah sekaligus.</p>
+            <ul class="f-list"><li>Pin otomatis dari lokasi laporan</li><li>Filter jalan rusak, fasilitas umum, dan lampu</li><li>Klik titik untuk membuka detail</li></ul>
+          </div>
+          <div class="mock"><div class="mock-bar"><i></i><i></i><i></i></div>
+            <div class="map">
+              <svg viewBox="0 0 400 300" preserveAspectRatio="none"><path d="M0 220 C120 200 200 120 400 90" stroke="rgba(148,163,184,.35)" stroke-width="6" fill="none"/><path d="M120 300 C140 200 220 160 260 0" stroke="rgba(148,163,184,.25)" stroke-width="4" fill="none"/></svg>
+              <span class="hero-pin warn" style="left:36%;top:54%"></span>
+              <span class="hero-pin" style="left:62%;top:30%;animation-delay:1s"></span>
+              <span class="hero-pin" style="left:78%;top:68%;animation-delay:1.8s"></span>
+              <div class="map-pop"><strong>Jalan berlubang</strong><span class="badge pending">Pending</span></div>
+            </div>
+          </div>
+        </div>
+ 
+        <div class="feature">
+          <div class="f-text">
+            <h3 style="font-size:var(--fs-xl)">Progres penanganan yang transparan</h3>
+            <p>Dari Pending sampai Resolved, setiap laporan punya status dan riwayat yang bisa dipantau seperti papan kanban.</p>
+            <ul class="f-list"><li>Empat status: Pending, Diproses, Resolved, Ditolak</li><li>Timeline lengkap di halaman detail</li><li>Dashboard ringkasan untuk admin</li></ul>
+          </div>
+          <div class="mock"><div class="mock-bar"><i></i><i></i><i></i></div>
+            <div class="kanban">
+              <div class="kcol"><h4>Pending</h4><div class="kcard">Lampu PJU mati<small>Gejayan</small></div><div class="kcard">Halte rusak<small>Jl. Solo</small></div></div>
+              <div class="kcol"><h4>Diproses</h4><div class="kcard">Jalan berlubang<small>Kaliurang</small></div></div>
+              <div class="kcol"><h4>Resolved</h4><div class="kcard">Trotoar amblas<small>Malioboro</small></div><div class="kcard">Drainase<small>Sleman</small></div></div>
+            </div>
+          </div>
+        </div>
+ 
+        <div class="feature">
+          <div class="f-text">
+            <h3 style="font-size:var(--fs-xl)">Voting komunitas untuk prioritas</h3>
+            <p>Anggaran perbaikan terbatas. Dengan vote, warga menunjukkan fasilitas mana yang paling mendesak.</p>
+            <ul class="f-list"><li>Satu akun, satu suara per laporan</li><li>Peringkat prioritas diperbarui langsung</li><li>Coba demonya di samping</li></ul>
+          </div>
+          <div class="mock"><div class="mock-bar"><i></i><i></i><i></i></div>
+            <div class="vote-item"><strong>Perbaikan jembatan penyeberangan</strong><span><b class="vnum">248</b> <button class="vote-btn" type="button">Vote</button></span><div class="vbar"><i style="width:78%"></i></div></div>
+            <div class="vote-item"><strong>Penerangan jalan Jl. Gejayan</strong><span><b class="vnum">171</b> <button class="vote-btn" type="button">Vote</button></span><div class="vbar"><i style="width:53%"></i></div></div>
+            <div class="vote-item"><strong>Halte bus Jl. Solo</strong><span><b class="vnum">96</b> <button class="vote-btn" type="button">Vote</button></span><div class="vbar"><i style="width:30%"></i></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <!-- CARA KERJA -->
+    <section class="section" id="cara-kerja" style="padding-top:0">
+      <div class="container">
+        <div class="sec-head"><h2>Cara kerjanya</h2></div>
+        <div class="grid steps">
+          <div class="step"><h3>Laporkan</h3><p>Isi form, pilih kategori, dan tandai lokasi di peta. Foto bisa dilampirkan.</p></div>
+          <div class="step"><h3>Verifikasi</h3><p>Admin memeriksa laporan dan menetapkan status awal.</p></div>
+          <div class="step"><h3>Pantau</h3><p>Ikuti perkembangan dari Pending hingga Resolved lewat timeline.</p></div>
+          <div class="step"><h3>Tentukan prioritas</h3><p>Warga memberi suara agar perbaikan yang mendesak dikerjakan lebih dulu.</p></div>
+        </div>
+      </div>
+    </section>
+ 
+    <!-- CTA -->
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="cta">
+          <div><h2>Lihat masalah di sekitarmu?</h2><p>Butuh kurang dari dua menit untuk membuat laporan.</p></div>
+          <a class="btn btn-primary btn-lg" href="lapor.html">Buat Laporan</a>
+        </div>
+      </div>
+    </section>
+  </main>
+ 
+  <div id="app-footer"></div>
+  <script src="js/layout.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>
