@@ -3,6 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1120">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="WargaCare - Platform Partisipasi Publik">
+  <meta property="og:description" content="Laporkan jalan rusak, fasilitas umum, dan lampu penerangan. Pantau progres dan tentukan prioritas bersama warga.">
+  <meta property="og:image" content="assets/hero.jpg">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preload" as="image" href="assets/hero.jpg" fetchpriority="high">
   <title>WargaCare - Platform Partisipasi Publik</title>
   <meta name="description" content="Laporkan jalan rusak, fasilitas umum, dan lampu penerangan. Pantau progres dan tentukan prioritas bersama warga.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,13 +19,14 @@
   <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
+  <a class="skip-link" href="#main">Lompat ke konten utama</a>
   <div id="app-navbar"></div>
  
-  <main>
+  <main id="main">
     <!-- HERO -->
     <section class="hero" id="beranda">
       <div class="hero-media" aria-hidden="true">
-        <img class="hero-img" src="assets/hero.jpg" alt="" fetchpriority="high">
+        <img class="hero-img" src="assets/hero.jpg" alt="" width="1516" height="1005" fetchpriority="high" decoding="async">
         <div class="hero-shade"></div>
       </div>
       <div class="container">
@@ -69,13 +77,13 @@
     </section>
  
     <!-- FITUR -->
-    <section class="section" id="fitur" style="padding-top:0">
+    <section class="section section--tight" id="fitur">
       <div class="container">
         <div class="sec-head"><h2>Tiga hal yang membuat laporan berujung perbaikan</h2></div>
  
         <div class="feature">
           <div class="f-text">
-            <h3 style="font-size:var(--fs-xl)">Peta interaktif berbasis lokasi</h3>
+            <h3>Peta interaktif berbasis lokasi</h3>
             <p>Setiap laporan menjadi titik di peta dengan kategori dan status yang jelas, sehingga petugas dan warga melihat sebaran masalah sekaligus.</p>
             <ul class="f-list"><li>Pin otomatis dari lokasi laporan</li><li>Filter jalan rusak, fasilitas umum, dan lampu</li><li>Klik titik untuk membuka detail</li></ul>
           </div>
@@ -92,7 +100,7 @@
  
         <div class="feature">
           <div class="f-text">
-            <h3 style="font-size:var(--fs-xl)">Progres penanganan yang transparan</h3>
+            <h3>Progres penanganan yang transparan</h3>
             <p>Dari Pending sampai Resolved, setiap laporan punya status dan riwayat yang bisa dipantau seperti papan kanban.</p>
             <ul class="f-list"><li>Empat status: Pending, Diproses, Resolved, Ditolak</li><li>Timeline lengkap di halaman detail</li><li>Dashboard ringkasan untuk admin</li></ul>
           </div>
@@ -107,7 +115,7 @@
  
         <div class="feature">
           <div class="f-text">
-            <h3 style="font-size:var(--fs-xl)">Voting komunitas untuk prioritas</h3>
+            <h3>Voting komunitas untuk prioritas</h3>
             <p>Anggaran perbaikan terbatas. Dengan vote, warga menunjukkan fasilitas mana yang paling mendesak.</p>
             <ul class="f-list"><li>Satu akun, satu suara per laporan</li><li>Peringkat prioritas diperbarui langsung</li><li>Coba demonya di samping</li></ul>
           </div>
@@ -121,7 +129,7 @@
     </section>
  
     <!-- CARA KERJA -->
-    <section class="section" id="cara-kerja" style="padding-top:0">
+    <section class="section section--tight" id="cara-kerja">
       <div class="container">
         <div class="sec-head"><h2>Cara kerjanya</h2></div>
         <div class="grid steps">
@@ -134,7 +142,7 @@
     </section>
  
     <!-- CTA -->
-    <section class="section" style="padding-top:0">
+    <section class="section section--tight">
       <div class="container">
         <div class="cta">
           <div><h2>Lihat masalah di sekitarmu?</h2><p>Butuh kurang dari dua menit untuk membuat laporan.</p></div>

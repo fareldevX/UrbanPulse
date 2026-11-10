@@ -29,9 +29,11 @@
         <span class="brand-mark">${ico.pulse}</span>
         <span class="brand-name">WargaCare<small class="brand-sub">Platform Partisipasi Publik</small></span>
       </a>
-      <ul class="nav-links" id="navLinks">
-        ${NAV.map(n => `<li><a href="${n.href}" ${n.href === page ? 'class="active" aria-current="page"' : ''}>${n.label}</a></li>`).join('')}
-      </ul>
+      <nav aria-label="Navigasi utama">
+        <ul class="nav-links" id="navLinks">
+          ${NAV.map(n => `<li><a href="${n.href}" ${n.href === page ? 'class="active" aria-current="page"' : ''}>${n.label}</a></li>`).join('')}
+        </ul>
+      </nav>
       <div class="nav-actions">
         <a class="btn btn-primary" href="lapor.html">${ico.plus}<span>Buat Laporan</span></a>
         <button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false" aria-controls="navLinks">${ico.menu}</button>
@@ -48,7 +50,7 @@
           <p class="footer-desc">Platform civic tech independen yang memberdayakan warga untuk melaporkan, memantau, dan memilih prioritas perbaikan infrastruktur kota.</p>
           <span class="status-chip"><i></i>Status sistem: Semua layanan beroperasi normal</span>
           <div class="socials">
-            <a href="#" aria-label="X">${ico.x}</a><a href="#" aria-label="Instagram">${ico.ig}</a><a href="#" aria-label="GitHub">${ico.gh}</a>
+            <a href="#" aria-label="X">${ico.x}</a><a href="#" aria-label="Instagram">${ico.ig}</a><a href="https://github.com/fareldevX/UrbanPulse" target="_blank" rel="noopener" aria-label="Repositori GitHub WargaCare">${ico.gh}</a>
           </div>
         </div>
         <div>
@@ -61,7 +63,7 @@
         </div>
         <div>
           <h4>Kontak</h4>
-          <ul><li>${ico.mail} halo@wargacare.id</li><li>${ico.pin} Kabupaten Tegal, Indonesia</li></ul>
+          <ul><li>${ico.mail}<a href="mailto:halo@wargacare.id">halo@wargacare.id</a></li><li>${ico.pin} Kabupaten Tegal, Indonesia</li></ul>
         </div>
       </div>
       <div class="footer-bottom">
@@ -84,11 +86,14 @@
     onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
   }
   if (toggle) {
+    const closeMenu = () => { links.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); };
     toggle.addEventListener('click', () => {
       const open = links.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', open);
+      toggle.setAttribute('aria-expanded', String(open));
     });
-    links.addEventListener('click', e => { if (e.target.tagName === 'A') links.classList.remove('open'); });
+    links.addEventListener('click', e => { if (e.target.tagName === 'A') closeMenu(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+    window.addEventListener('resize', () => { if (window.innerWidth > 860) closeMenu(); });
   }
 })();
  
