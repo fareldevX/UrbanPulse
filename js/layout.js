@@ -1,14 +1,15 @@
-/* UrbanPulse shell: injects the sticky navbar, fullscreen mobile menu and footer on every page.
+/* UrbanPulse shell: injects the sticky navbar, mobile menu and footer on every page.
    Usage: <div id="app-navbar"></div> ... <main>...</main> ... <div id="app-footer"></div>
-          <script src="js/layout.js"></script>   (GSAP + ScrollTrigger are used when loaded before this file) */
+          <script src="js/layout.js"></script>   (tanpa dependensi eksternal) */
 (function () {
   const NAV = [
     { href: "index.html#home", label: "Home", m: true },
     { href: "index.html#about", label: "About" },
     { href: "index.html#features", label: "Features" },
     { href: "index.html#how-it-works", label: "How it works" },
-    { href: "peta.html", label: "Report Map" },
-    { href: "statistik.html", label: "Statistics" },
+    { href: "peta.html", label: "Report map" },
+    // halaman statistik belum ada; arahkan ke ringkasan data di beranda, jangan taruh tautan mati.
+    { href: "index.html#impact", label: "Statistics" },
   ];
   const CATS = [
     ["road", "Road damage"],
@@ -45,14 +46,12 @@
         <span class="up-nav-ind" aria-hidden="true"></span>
       </nav>
       <div class="up-nav-act">
-        <a class="up-nav-cta" href="lapor.html"><span>Report an Issue</span>${ico.arrow}</a>
+        <a class="up-nav-cta" href="lapor.html"><span>Report an issue</span>${ico.arrow}</a>
         <button class="up-nav-toggle" id="upToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="upMenu"><span class="up-burger" aria-hidden="true"><i></i><i></i></span><span>Menu</span></button>
       </div>
     </div>
-    <span class="up-nav-prog" aria-hidden="true"></span>
   </header>
   <div class="up-menu" id="upMenu" role="dialog" aria-modal="true" aria-label="Site navigation" aria-hidden="true" inert>
-    <div class="up-menu-bg" aria-hidden="true"><svg viewBox="0 0 400 300"><path d="M-10 230C80 210 150 140 260 120S390 60 420 40"/><path d="M60 310C90 220 170 170 210 60S280 -10 290 -20"/><path d="M-10 120C60 140 140 120 220 170S350 250 420 230"/></svg></div>
     <div class="container up-menu-in">
       <div class="up-menu-top">
         <a class="up-brand" href="index.html#home"><span class="up-brand-mark">${ico.pulse}</span><span>Urban<b>Pulse</b></span></a>
@@ -64,20 +63,18 @@
         </ol>
       </nav>
       <div class="up-menu-foot">
-        <a class="up-menu-cta" href="lapor.html"><span>Report an Issue</span>${ico.arrow}</a>
+        <a class="up-menu-cta" href="lapor.html"><span>Report an issue</span>${ico.arrow}</a>
         <p class="up-mono">Smart City &amp; Urban Innovation &middot; SDG 9 &amp; 11</p>
       </div>
     </div>
   </div>`;
 
-  const letters = (t, cls) =>
-    `<span class="${cls}">${[...t].map((c) => `<span class="l">${c}</span>`).join("")}</span>`;
   const footer = `
   <footer class="up-foot" id="upFoot">
     <div class="container">
       <div class="up-foot-top">
         <div class="up-foot-brand">
-          <p class="up-foot-lead">UrbanPulse is an independent civic-tech platform that helps residents report, track, and prioritize repairs to city infrastructure.</p>
+          <p class="up-foot-lead">UrbanPulse is a civic reporting demo for resident-filed infrastructure reports. Every entry in the dataset is simulated, and the project is built as a student prototype.</p>
           <div class="up-foot-id">
             <p class="up-mono">Smart City &amp; Urban Innovation</p>
             <div class="up-foot-sdg"><b>9</b><span>Industry, Innovation &amp; Infrastructure</span></div>
@@ -87,15 +84,15 @@
         <nav class="up-foot-nav" aria-label="Footer">
           <ol>
             ${NAV.map((n, i) => `<li><a href="${n.href}"><i>${pad(i + 1)}</i>${n.label}${ico.arrow}</a></li>`).join("")}
-            <li><a href="lapor.html"><i>${pad(NAV.length + 1)}</i>Report an Issue${ico.arrow}</a></li>
+            <li><a href="lapor.html"><i>${pad(NAV.length + 1)}</i>Report an issue${ico.arrow}</a></li>
           </ol>
           <div class="up-foot-cats"><span class="up-mono">Browse the map by category</span>${CATS.map(([k, l]) => `<a href="peta.html?kategori=${k}">${l}</a>`).join("")}</div>
         </nav>
       </div>
-      <svg class="up-foot-pulse" viewBox="0 0 1200 36" aria-hidden="true"><path pathLength="1" d="M0 18H430l16-14 22 28 18-22 12 8H1200"/></svg>
-      <div class="up-foot-mark" id="upMark" role="img" aria-label="UrbanPulse"><span class="up-foot-mark-in" aria-hidden="true">${letters("Urban", "u")}${letters("Pulse", "p")}</span></div>
+      <svg class="up-foot-pulse" viewBox="0 0 1200 36" aria-hidden="true"><path d="M0 18H430l16-14 22 28 18-22 12 8H1200"/></svg>
+      <div class="up-foot-mark" id="upMark" role="img" aria-label="UrbanPulse"><span class="up-foot-mark-in"><span class="u">Urban</span><span class="p">Pulse</span></span></div>
       <div class="up-foot-bottom">
-        <p>&copy; <span id="upYear"></span> UrbanPulse. Smart City &amp; Urban Innovation category (SDG 9 &amp; 11).</p>
+        <p>&copy; <span id="upYear"></span> UrbanPulse. Prototype dataset, all reports simulated.</p>
         <button class="up-foot-totop" type="button" id="upTop">Back to top ${ico.up}</button>
       </div>
     </div>
@@ -121,36 +118,29 @@
     toggle = $("#upToggle"),
     menu = $("#upMenu");
   const reduce = matchMedia("(prefers-reduced-motion: reduce)");
-  const gs = () => (window.gsap && !reduce.matches ? window.gsap : null);
-  if (window.gsap && !reduce.matches) root.classList.add("has-gsap");
   if (!nav) return;
 
-  /* ---- sticky navbar: scrolled state + page progress hairline ---- */
+  /* ---- sticky navbar: scrolled state ---- */
   let ticking = false;
   const onScroll = () => {
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(() => {
       ticking = false;
-      const max = root.scrollHeight - innerHeight;
       nav.classList.toggle("is-scrolled", scrollY > 8);
-      nav.style.setProperty(
-        "--p",
-        max > 0 ? Math.min(1, scrollY / max).toFixed(4) : 0,
-      );
     });
   };
   onScroll();
   addEventListener("scroll", onScroll, { passive: true });
 
-  /* ---- active item: sliding indicator + section scroll-spy (landing page) ---- */
+  /* ---- active item: indicator + section scroll-spy (landing page) ---- */
   const links = [...document.querySelectorAll("#upLinks a")],
     menuLinks = [...document.querySelectorAll(".up-menu-list a")],
     ind = $(".up-nav-ind");
   function place() {
     const a = links.find((x) => x.classList.contains("active"));
-    if (!a || !a.offsetWidth) {
-      ind.style.opacity = 0;
+    if (!a || !a.offsetWidth || !ind) {
+      if (ind) ind.style.opacity = 0;
       return;
     }
     const p = parseFloat(getComputedStyle(a).paddingLeft) || 0;
@@ -191,136 +181,32 @@
   addEventListener("resize", place);
   if (document.fonts) document.fonts.ready.then(place);
 
-  /* ---- fullscreen mobile menu ---- */
-  let open = false,
-    tl = null;
+  /* ---- mobile menu ---- */
+  let open = false;
   const closeBtn = $(".up-menu-close"),
     focusables = () => [...menu.querySelectorAll("a[href],button")];
-
-  function resetMenuElements() {
-    const g = window.gsap;
-    if (g) {
-      g.set([menu, closeBtn], { clearProps: "all" });
-      g.set(".up-menu-list .t > span, .up-menu-list .n, .up-menu-foot > *", {
-        clearProps: "all",
-      });
-    }
-  }
 
   function openMenu() {
     if (open) return;
     open = true;
-
     toggle.setAttribute("aria-expanded", "true");
     toggle.setAttribute("aria-label", "Close menu");
     menu.removeAttribute("inert");
     menu.setAttribute("aria-hidden", "false");
+    menu.classList.add("is-open");
     root.classList.add("up-lock");
-
-    const g = gs();
-
-    if (g) {
-      const w = innerWidth,
-        cx = w - 36,
-        r = Math.hypot(cx, innerHeight) + 24;
-
-      if (tl) {
-        tl.kill();
-        tl = null;
-      }
-      resetMenuElements();
-
-      tl = g.timeline({ defaults: { ease: "power3.inOut" } });
-      tl.set(menu, { visibility: "visible" })
-        .fromTo(
-          menu,
-          { clipPath: `circle(0px at ${cx}px 36px)` },
-          { clipPath: `circle(${r}px at ${cx}px 36px)`, duration: 0.85 },
-        )
-        .fromTo(
-          ".up-menu-list .t > span",
-          { yPercent: 118, rotate: 3 },
-          {
-            yPercent: 0,
-            rotate: 0,
-            duration: 0.75,
-            stagger: 0.07,
-            ease: "power4.out",
-            clearProps: "transform",
-          },
-          "-=0.45",
-        )
-        .fromTo(
-          ".up-menu-list .n",
-          { opacity: 0, x: -14 },
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.4,
-            stagger: 0.07,
-            ease: "power2.out",
-            clearProps: "opacity,transform",
-          },
-          "<",
-        )
-        .fromTo(
-          ".up-menu-foot > *",
-          { opacity: 0, y: 26 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.55,
-            stagger: 0.1,
-            ease: "power3.out",
-            clearProps: "opacity,transform",
-          },
-          "-=0.45",
-        )
-        .fromTo(
-          closeBtn,
-          { rotate: -135, scale: 0.4, opacity: 0 },
-          {
-            rotate: 0,
-            scale: 1,
-            opacity: 1,
-            duration: 0.6,
-            ease: "back.out(2)",
-            clearProps: "transform,opacity",
-          },
-          0.25,
-        );
-    } else menu.classList.add("is-open");
-    setTimeout(() => closeBtn.focus({ preventScroll: true }), g ? 400 : 60);
+    closeBtn.focus({ preventScroll: true });
   }
 
-  function closeMenu(instant) {
+  function closeMenu() {
     if (!open) return;
     open = false;
-
     toggle.setAttribute("aria-expanded", "false");
     toggle.setAttribute("aria-label", "Open menu");
     menu.setAttribute("inert", "");
     menu.setAttribute("aria-hidden", "true");
+    menu.classList.remove("is-open");
     root.classList.remove("up-lock");
-
-    const g = window.gsap;
-
-    if (tl && g && !instant) {
-      const t = tl;
-      t.eventCallback("onReverseComplete", () => {
-        resetMenuElements();
-        t.kill();
-        if (tl === t) tl = null;
-      });
-      t.timeScale(1.5).reverse();
-    } else {
-      if (tl) {
-        tl.kill();
-        tl = null;
-      }
-      resetMenuElements();
-      menu.classList.remove("is-open");
-    }
     toggle.focus({ preventScroll: true });
   }
 
@@ -331,7 +217,6 @@
   });
   document.addEventListener("keydown", (e) => {
     if (!open) return;
-
     if (e.key === "Escape") {
       e.preventDefault();
       closeMenu();
@@ -349,15 +234,14 @@
     }
   });
   matchMedia("(min-width: 861px)").addEventListener("change", (e) => {
-    if (e.matches) closeMenu(true);
+    if (e.matches) closeMenu();
   });
 
-  /* ---- footer: fitted wordmark, back-to-top, entrance + scroll-driven motion ---- */
-  const foot = $("#upFoot"),
-    mark = $("#upMark"),
+  /* ---- footer: fitted wordmark, back-to-top ---- */
+  const mark = $("#upMark"),
     inner = mark && $(".up-foot-mark-in", mark);
   const fit = () => {
-    if (!mark) return;
+    if (!mark || !inner) return;
     mark.style.fontSize = "100px";
     const w = inner.getBoundingClientRect().width,
       t = mark.clientWidth;
@@ -375,66 +259,4 @@
     top.addEventListener("click", () =>
       scrollTo({ top: 0, behavior: reduce.matches ? "auto" : "smooth" }),
     );
-  const g = gs();
-  if (g && window.ScrollTrigger && foot) {
-    g.registerPlugin(window.ScrollTrigger);
-    const trig = { trigger: foot, start: "top 82%" };
-    g.from(".up-foot-lead, .up-foot-id > *", {
-      y: 28,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: "power3.out",
-      scrollTrigger: trig,
-    });
-    g.from(".up-foot-nav li", {
-      clipPath: "inset(0 100% 0 0)",
-      x: 36,
-      duration: 0.8,
-      stagger: 0.07,
-      ease: "power3.inOut",
-      clearProps: "clipPath,transform",
-      scrollTrigger: trig,
-    });
-    g.from(".up-foot-cats > *", {
-      opacity: 0,
-      y: 14,
-      duration: 0.5,
-      stagger: 0.05,
-      scrollTrigger: { trigger: ".up-foot-cats", start: "top 95%" },
-    });
-    g.fromTo(
-      ".up-foot-pulse path",
-      { strokeDasharray: 1, strokeDashoffset: 1 },
-      {
-        strokeDashoffset: 0,
-        duration: 1.6,
-        ease: "power2.inOut",
-        scrollTrigger: { trigger: ".up-foot-pulse", start: "top 92%" },
-      },
-    );
-    g.from(".up-foot-mark .l", {
-      yPercent: 115,
-      duration: 0.9,
-      stagger: 0.04,
-      ease: "power4.out",
-      clearProps: "transform",
-      onComplete: () => mark.classList.add("is-in"),
-      scrollTrigger: trig,
-    });
-    g.fromTo(
-      ".up-foot-mark-in",
-      { yPercent: 14 },
-      {
-        yPercent: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: foot,
-          start: "top bottom",
-          end: "bottom bottom",
-          scrub: true,
-        },
-      },
-    );
-  }
 })();
