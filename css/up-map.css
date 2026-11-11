@@ -1,5 +1,6 @@
 .up-map{
   --up-road:#ef4444;--up-light:#f59e0b;--up-waste:var(--accent);--up-flood:#3b82f6;
+  position:relative;z-index:1;isolation:isolate;
   font-family:var(--font);
   background:var(--surface);
   color:var(--text);

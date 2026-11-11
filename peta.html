@@ -4,77 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Report Map - UrbanPulse</title>
-    <meta name="description" content="Interactive map of reported road damage, broken streetlights, waste, and flooding. Filter by category and status." />
+    <meta
+      name="description"
+      content="Explore simulated infrastructure reports on an interactive map. Filter by category and status, search by title or ID, and open any report."
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
+    />
     <link rel="stylesheet" href="css/theme.css" />
     <link rel="stylesheet" href="css/shell.css" />
-    <link rel="stylesheet" href="css/up-map.css" />
-    <link rel="stylesheet" href="css/peta.css" />
+    <link rel="stylesheet" href="css/map-page.css" />
   </head>
-  <body class="page-peta">
+  <body>
     <div id="app-navbar"></div>
     <main>
-      <!-- Command Center Hero Banner -->
-      <section class="peta-hero">
-        <div class="peta-hero-bg" aria-hidden="true">
-          <div class="peta-grid"></div>
-          <div class="peta-orb peta-orb-1"></div>
-          <div class="peta-orb peta-orb-2"></div>
-          <div class="peta-scanline"></div>
-        </div>
-        <div class="container">
-          <div class="peta-hero-top">
-            <span class="peta-live-badge"><i></i>Live</span>
-            <div class="peta-hero-text">
-              <h1 class="peta-title">
-                <span class="peta-title-line">Report Map</span>
-                <span class="peta-title-line peta-title-accent">City Infrastructure</span>
-              </h1>
-              <p class="peta-subtitle">Monitor infrastructure conditions in real time. Every citizen report on one interactive map.</p>
-            </div>
-          </div>
-          <div class="peta-stats" id="peta-stats">
-            <div class="peta-stat" data-target="total">
-              <div class="peta-stat-inner">
-                <span class="peta-stat-num" id="stat-total">0</span>
-                <span class="peta-stat-label">Total Reports</span>
-              </div>
-              <div class="peta-stat-bg-glow"></div>
-            </div>
-            <div class="peta-stat" data-target="pending">
-              <div class="peta-stat-inner">
-                <span class="peta-stat-num" id="stat-pending">0</span>
-                <span class="peta-stat-label">Pending</span>
-              </div>
-              <div class="peta-stat-bg-glow"></div>
-            </div>
-            <div class="peta-stat" data-target="resolved">
-              <div class="peta-stat-inner">
-                <span class="peta-stat-num" id="stat-resolved">0%</span>
-                <span class="peta-stat-label">Resolved</span>
-              </div>
-              <div class="peta-stat-bg-glow"></div>
-            </div>
-            <div class="peta-stat" data-target="inprogress">
-              <div class="peta-stat-inner">
-                <span class="peta-stat-num" id="stat-progress">0</span>
-                <span class="peta-stat-label">In Progress</span>
-              </div>
-              <div class="peta-stat-bg-glow"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Map View (No report form, container bounded) -->
-      <section class="map-section">
-        <div class="container">
-          <div id="up-map-root" data-heading="h2" data-mode="view" data-allow-report="false"></div>
-        </div>
-      </section>
+      <div
+        id="up-map-root"
+        data-mode="view"
+        data-heading="h1"
+        data-title="City infrastructure"
+      ></div>
     </main>
     <div id="app-footer"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>

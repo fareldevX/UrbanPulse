@@ -10,7 +10,7 @@ main:focus {
   position: absolute;
   left: 12px;
   top: -64px;
-  z-index: 400;
+  z-index: 1300;
   background: var(--accent);
   color: #04120d;
   padding: 10px 16px;
@@ -36,7 +36,7 @@ main:focus {
 .up-nav {
   position: sticky;
   top: 0;
-  z-index: 200;
+  z-index: 1100;
   height: var(--nav-h);
   background: linear-gradient(
     180deg,
@@ -271,7 +271,7 @@ main:focus {
 .up-menu {
   position: fixed;
   inset: 0;
-  z-index: 300;
+  z-index: 1200;
   visibility: hidden;
   background: var(--bg);
   color: var(--text);

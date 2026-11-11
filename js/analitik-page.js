@@ -10,19 +10,45 @@ import * as repo from "./services/reportRepository.js";
 import { anim } from "./utils/dom.js";
 
 const DAY = 864e5;
-const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const MONTHS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 const STATUS_ORDER = ["pending", "in-progress", "resolved"];
 const CATEGORY_ORDER = ["road", "streetlight", "waste", "flood"];
 const URGENCY_ORDER = ["high", "medium", "low"];
-const STATUS_CLASS = { pending: "pending", "in-progress": "progress", resolved: "resolved" };
+const STATUS_CLASS = {
+  pending: "pending",
+  "in-progress": "progress",
+  resolved: "resolved",
+};
 const URGENCY_RANK = { high: 0, medium: 1, low: 2 };
 
 let sortMode = "newest";
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) =>
-  String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const setText = (id, value) => { const el = $(id); if (el) el.textContent = String(value); };
+  String(s).replace(
+    /[&<>"']/g,
+    (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[
+        c
+      ],
+  );
+const setText = (id, value) => {
+  const el = $(id);
+  if (el) el.textContent = String(value);
+};
 const pct = (n, total) => (total ? Math.round((n / total) * 100) : 0);
 const plural = (n, word) => `${n} ${word}${n === 1 ? "" : "s"}`;
 
@@ -54,9 +80,16 @@ function resolutionDays(r) {
 function summarize(reports) {
   const total = reports.length;
   const resolved = reports.filter((r) => r.status === "resolved").length;
-  const days = reports.filter((r) => r.status === "resolved").map(resolutionDays).filter((v) => v !== null);
-  const avgDays = days.length ? days.reduce((a, b) => a + b, 0) / days.length : null;
-  const highOpen = reports.filter((r) => r.urgency === "high" && r.status !== "resolved").length;
+  const days = reports
+    .filter((r) => r.status === "resolved")
+    .map(resolutionDays)
+    .filter((v) => v !== null);
+  const avgDays = days.length
+    ? days.reduce((a, b) => a + b, 0) / days.length
+    : null;
+  const highOpen = reports.filter(
+    (r) => r.urgency === "high" && r.status !== "resolved",
+  ).length;
   return { total, resolved, avgDays, highOpen };
 }
 
@@ -66,9 +99,12 @@ function renderKpi(reports) {
   setText("an-resolved", `${pct(s.resolved, s.total)}%`);
   setText("an-resolved-sub", `${s.resolved} of ${s.total} reports`);
   setText("an-avgdays", s.avgDays === null ? "n/a" : s.avgDays.toFixed(1));
-  setText("an-avgdays-sub", s.avgDays === null
-    ? "No resolved reports yet"
-    : `Across ${plural(s.resolved, "resolved report")}`);
+  setText(
+    "an-avgdays-sub",
+    s.avgDays === null
+      ? "No resolved reports yet"
+      : `Across ${plural(s.resolved, "resolved report")}`,
+  );
   setText("an-highopen", s.highOpen);
 }
 
@@ -90,7 +126,10 @@ function renderBars(targetId, field, order, labels, reports) {
   const el = $(targetId);
   if (!el) return;
   const total = reports.length;
-  el.innerHTML = barRows(order.map((k) => [labels[k], reports.filter((r) => r[field] === k).length]), total);
+  el.innerHTML = barRows(
+    order.map((k) => [labels[k], reports.filter((r) => r[field] === k).length]),
+    total,
+  );
 }
 
 function buildTrend(reports) {
@@ -170,28 +209,50 @@ function sortedReports(reports) {
   const list = [...reports];
   switch (sortMode) {
     case "oldest":
-      return list.sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt) || a.id.localeCompare(b.id));
+      return list.sort(
+        (a, b) =>
+          Date.parse(a.createdAt) - Date.parse(b.createdAt) ||
+          a.id.localeCompare(b.id),
+      );
     case "votes":
-      return list.sort((a, b) => b.upvotes - a.upvotes || a.id.localeCompare(b.id));
+      return list.sort(
+        (a, b) => b.upvotes - a.upvotes || a.id.localeCompare(b.id),
+      );
     case "urgency":
-      return list.sort((a, b) => URGENCY_RANK[a.urgency] - URGENCY_RANK[b.urgency] || Date.parse(b.createdAt) - Date.parse(a.createdAt));
+      return list.sort(
+        (a, b) =>
+          URGENCY_RANK[a.urgency] - URGENCY_RANK[b.urgency] ||
+          Date.parse(b.createdAt) - Date.parse(a.createdAt),
+      );
     case "category":
-      return list.sort((a, b) => repo.CATEGORIES[a.category].localeCompare(repo.CATEGORIES[b.category]) || a.id.localeCompare(b.id));
+      return list.sort(
+        (a, b) =>
+          repo.CATEGORIES[a.category].localeCompare(
+            repo.CATEGORIES[b.category],
+          ) || a.id.localeCompare(b.id),
+      );
     default:
-      return list.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt) || a.id.localeCompare(b.id));
+      return list.sort(
+        (a, b) =>
+          Date.parse(b.createdAt) - Date.parse(a.createdAt) ||
+          a.id.localeCompare(b.id),
+      );
   }
 }
 
 function renderTable(reports) {
   const body = $("an-tbody");
   if (!body) return;
-  setText("an-count", reports.length ? `${plural(reports.length, "report")} listed` : "");
+  setText(
+    "an-count",
+    reports.length ? `${plural(reports.length, "report")} listed` : "",
+  );
   if (!reports.length) {
     body.innerHTML = `<tr><td colspan="8" class="an-empty">No reports to list yet.</td></tr>`;
   } else {
     body.innerHTML = sortedReports(reports)
-    .map(
-      (r) => `<tr>
+      .map(
+        (r) => `<tr>
         <td data-label="ID"><span class="an-id">${esc(r.id)}</span></td>
         <td data-label="Title">${esc(r.title)}</td>
         <td data-label="Category">${esc(repo.CATEGORIES[r.category])}</td>
@@ -201,8 +262,8 @@ function renderTable(reports) {
         <td data-label="Created">${esc(fmtDate(r.createdAt))}</td>
         <td data-label="Owner">${esc(r.ownerId || "guest")}</td>
       </tr>`,
-    )
-    .join("");
+      )
+      .join("");
   }
   body.querySelectorAll("tr").forEach((tr) => anim(tr));
 }
@@ -242,6 +303,7 @@ function init() {
   renderAll();
 }
 
-if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+if (document.readyState === "loading")
+  document.addEventListener("DOMContentLoaded", init);
 else init();
 repo.subscribe(renderAll);

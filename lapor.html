@@ -4,85 +4,58 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Report an Issue - UrbanPulse</title>
-    <meta name="description" content="Report infrastructure problems near you: pick a location on the map, add details, and attach a photo." />
+    <meta
+      name="description"
+      content="Report an infrastructure problem: pick the location on the map, choose a category and urgency, describe it, and attach an optional photo."
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
+    />
     <link rel="stylesheet" href="css/theme.css" />
     <link rel="stylesheet" href="css/shell.css" />
-    <link rel="stylesheet" href="css/up-map.css" />
-    <link rel="stylesheet" href="css/lapor.css" />
+    <link rel="stylesheet" href="css/map-page.css" />
+    <link rel="stylesheet" href="css/report-page.css" />
   </head>
-  <body class="page-lapor">
+  <body>
     <div id="app-navbar"></div>
     <main>
-      <!-- Mission Control Hero Intro -->
-      <section class="lapor-hero">
-        <div class="lapor-hero-bg" aria-hidden="true">
-          <div class="lapor-grid"></div>
-          <div class="lapor-orb lapor-orb-1"></div>
-          <div class="lapor-orb lapor-orb-2"></div>
-          <div class="lapor-ring-anim"></div>
+      <div class="rp">
+        <div class="rp-col">
+          <header class="rp-head" id="rp-intro">
+            <p class="mp-kicker">File a report</p>
+            <h1>Put the problem on the map.</h1>
+            <p class="rp-lede">
+              Four short steps. Location comes first, because a report without
+              coordinates cannot be saved. Reports in this build are simulated
+              and stay in your browser.
+            </p>
+            <ol class="rp-meter" id="rpMeter" aria-label="Progress">
+              <li data-k="loc"><span>Location</span></li>
+              <li data-k="cat"><span>Type</span></li>
+              <li data-k="det"><span>Details</span></li>
+              <li data-k="img"><span>Photo</span><small>optional</small></li>
+            </ol>
+            <p class="rp-progress" id="rpCount" aria-live="polite">
+              0 of 3 required steps complete
+            </p>
+          </header>
+          <div id="rp-form"></div>
         </div>
-        <div class="container">
-          <div class="lapor-hero-inner">
-            <div class="lapor-hero-text">
-              <div class="lapor-eyebrow">
-                <span class="lapor-eyebrow-dot"></span>
-                Citizen Participation
-              </div>
-              <h1 class="lapor-title">
-                <span class="lapor-word">Report</span>
-                <span class="lapor-word lapor-word-accent">Issues</span>
-                <span class="lapor-word">Near You</span>
-              </h1>
-              <p class="lapor-subtitle">Your voice matters. Report infrastructure damage around you and help authorities act faster.</p>
-            </div>
-            <div class="lapor-steps" id="lapor-steps">
-              <div class="lapor-step lapor-step-1">
-                <div class="lapor-step-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-                  <span class="lapor-step-ring"></span>
-                </div>
-                <div class="lapor-step-info">
-                  <strong>Choose Location</strong>
-                  <small>Click the map to mark the problem spot</small>
-                </div>
-              </div>
-              <div class="lapor-step-connector"></div>
-              <div class="lapor-step lapor-step-2">
-                <div class="lapor-step-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>
-                  <span class="lapor-step-ring"></span>
-                </div>
-                <div class="lapor-step-info">
-                  <strong>Add Details</strong>
-                  <small>Category, urgency, description &amp; photo</small>
-                </div>
-              </div>
-              <div class="lapor-step-connector"></div>
-              <div class="lapor-step lapor-step-3">
-                <div class="lapor-step-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4Z"/></svg>
-                  <span class="lapor-step-ring"></span>
-                </div>
-                <div class="lapor-step-info">
-                  <strong>Submit Report</strong>
-                  <small>Your report appears on the map right away</small>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="rp-mapcol">
+          <div
+            id="up-map-root"
+            data-mode="report"
+            data-form-mount="rp-form"
+          ></div>
         </div>
-      </section>
-
-      <!-- Map View with Interactive Report Form (Container bounded) -->
-      <section class="map-section">
-        <div class="container">
-          <div id="up-map-root" data-heading="h2" data-mode="report" data-title="Citizen report form"></div>
-        </div>
-      </section>
+      </div>
     </main>
     <div id="app-footer"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
