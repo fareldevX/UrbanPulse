@@ -1,5 +1,5 @@
 import * as repo from "../../services/reportRepository.js";
-import { h, fmtDate } from "../../utils/dom.js";
+import { h, fmtDate, anim } from "../../utils/dom.js";
 import { createReportForm } from "../reports/reportForm.js";
 
 const CENTER = [-7.7828, 110.3671]; // Yogyakarta (wilayah demo)
@@ -16,6 +16,27 @@ const svg = (c, s = 16) => `<svg viewBox="0 0 24 24" width="${s}" height="${s}" 
 // Only validated enum values reach this template (see repository.normalize).
 const icon = (r) => window.L.divIcon({ className: "", iconSize: [34, 34], iconAnchor: [17, 17],
   html: `<span class="up-marker up-marker--${r.category} up-marker--${r.status}${r.urgency === "high" && r.status !== "resolved" ? " is-hot" : ""}">${svg(r.category)}<i class="up-marker-st">${GLYPH[r.status]}</i></span>` });
+
+/** Animate the detail panel with GSAP slide-from-right if available, else fallback to anim(). */
+function animateDetailIn(el) {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) return;
+  const g = window.gsap;
+  if (g) {
+    const isMobile = window.innerWidth <= 720;
+    g.fromTo(
+      el,
+      isMobile
+        ? { y: 60, opacity: 0, scale: 0.97 }
+        : { x: 48, opacity: 0 },
+      isMobile
+        ? { y: 0, opacity: 1, scale: 1, duration: 0.42, ease: "power3.out", clearProps: "transform,opacity" }
+        : { x: 0, opacity: 1,           duration: 0.38, ease: "power3.out", clearProps: "transform,opacity" }
+    );
+  } else {
+    anim(el);
+  }
+}
 
 export function initUrbanPulseMap(root = document.getElementById("up-map-root")) {
   if (!root || root.dataset.upReady || !window.L) return null;
@@ -112,10 +133,11 @@ export function initUrbanPulseMap(root = document.getElementById("up-map-root"))
     const r = repo.getReportById(id);
     if (!r) return;
     form.close();
-    openId = id; renderDetail(id); detail.hidden = false;
+    const first = detail.hidden; openId = id; renderDetail(id); detail.hidden = false;
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
     map.setView([r.coordinates.lat, r.coordinates.lng], Math.max(map.getZoom(), 15), { animate: !reduce });
     if (stage.clientWidth > 720) map.panBy([190, 0], { animate: false });
+    if (first) animateDetailIn(detail);
     detail.querySelector(".up-detail-x").focus();
   }
   function closeDetail(silent) {
