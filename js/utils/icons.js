@@ -1,4 +1,3 @@
-// Shared icon paths + glyphs. Only static, trusted strings go through innerHTML here.
 export const PATH = {
   road: "M4 21 9 3M20 21 15 3M12 5v3M12 11v3M12 17v3",
   streetlight:

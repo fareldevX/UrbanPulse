@@ -1,15 +1,11 @@
-// UrbanPulse dashboard. Four states, driven by the session in services/authStore.js:
-// guest, resident, active admin, and a locked page for admins still waiting for approval.
-// Every admin action re-checks isActiveAdmin() before it runs, so the guard is in the logic,
-// not only in which buttons happen to be on screen.
-import * as auth from "./services/authStore.js";
-import * as repo from "./services/reportRepository.js";
-import { anim, h } from "./utils/dom.js";
+import * as auth from "../services/authStore.js";
+import * as repo from "../services/reportRepository.js";
+import { anim, h } from "../utils/dom.js";
 
 const root = document.getElementById("dash-root");
 const STATUS_CLASS = { pending: "pending", "in-progress": "progress", resolved: "resolved" };
 
-let notice = null; // { kind: "ok" | "error", text }
+let notice = null;
 
 const setNotice = (kind, text) => { notice = text ? { kind, text } : null; };
 
@@ -207,7 +203,6 @@ function signOut() {
   location.href = "index.html";
 }
 
-// Shared guard: bail out with a message when the caller is not an active admin.
 async function denied(message) {
   setNotice("error", message);
   await render();
@@ -277,8 +272,6 @@ async function render() {
   entrance();
 }
 
-// Animasi masuk untuk panel, kartu KPI, dan baris data. Gaya sama seperti halaman lain:
-// GSAP bila termuat (durasi .28s, stagger kecil, clearProps), kalau tidak pakai anim().
 function entrance() {
   const items = [...root.querySelectorAll(".dash-panel, .dash-section, .dash-kpi, .dash-report, .dash-approval, .dash-notice, .dash-empty")];
   if (!items.length) return;
@@ -292,7 +285,6 @@ function entrance() {
 (async function start() {
   await auth.ready();
   await render();
-  // Repaint on any account or report change, including changes from another tab.
   auth.subscribe(() => { render(); });
   repo.subscribe(() => { render(); });
 })();

@@ -1,4 +1,3 @@
-/* UrbanPulse report page: split studio (stepwise form + sticky map picker). Namespaced .rp-* */
 .rp {
   display: grid;
   grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);

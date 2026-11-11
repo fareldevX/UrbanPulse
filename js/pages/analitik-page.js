@@ -1,13 +1,5 @@
-/**
- * analitik-page.js - analytics summary for analitik.html
- *
- * Every figure is counted from the report repository
- * (js/services/reportRepository.js); nothing is hard-coded. Dates are grouped
- * and formatted in UTC so the numbers do not shift with the visitor's
- * timezone. All panels are repainted whenever reports change.
- */
-import * as repo from "./services/reportRepository.js";
-import { anim } from "./utils/dom.js";
+import * as repo from "../services/reportRepository.js";
+import { anim } from "../utils/dom.js";
 
 const DAY = 864e5;
 const MONTHS = [

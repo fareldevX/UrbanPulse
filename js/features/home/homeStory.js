@@ -1,4 +1,3 @@
-// Data-driven landing sections (timeline, priority queue, impact). Reads the shared report repository.
 import * as repo from "../../services/reportRepository.js";
 
 const $ = (s, r = document) => r.querySelector(s);
@@ -10,7 +9,6 @@ const rm = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 const gs = () => (window.gsap && !rm() ? window.gsap : null);
 const badge = (r) => el("span", `badge ${CLS[r.status]}`, repo.STATUSES[r.status]);
 
-/* ---- 06 impact ---- */
 let group = "category";
 const STC = { pending: "#f59e0b", "in-progress": "#38bdf8", resolved: "#10b981" }, URC = { low: "#64748b", medium: "#f59e0b", high: "#ef4444" };
 const GROUPS = {
@@ -51,7 +49,6 @@ if (seg) seg.addEventListener("click", (e) => {
   const g = gs(); if (g) g.fromTo("#bars", { "--k": 0 }, { "--k": 1, duration: 0.8, ease: "power3.out" });
 });
 
-/* ---- 03 timeline ---- */
 let selId = null;
 function renderTimeline(rs, animate, refocus) {
   const pick = $("#tlPick"), tl = $("#tl");
@@ -76,7 +73,6 @@ function renderTimeline(rs, animate, refocus) {
   if (g) { g.from(".tl-line", { scaleX: 0, duration: 0.9, ease: "power3.inOut" }); g.from(".tl-node", { x: 40, opacity: 0, duration: 0.6, stagger: 0.12, ease: "power3.out", delay: 0.15 }); }
 }
 
-/* ---- 04 priority (demo votes live in memory only) ---- */
 const votes = new Map(); let hideDone = true;
 function renderPrio(rs, flip, focusId) {
   const list = $("#prio");
@@ -106,7 +102,6 @@ function renderAll() { const rs = repo.getReports(); renderImpact(rs); renderTim
 renderAll();
 repo.subscribe(renderAll);
 
-/* scroll motion for the dynamic blocks (plugin is registered by home-motion.js) */
 const g = gs();
 if (g && window.ScrollTrigger) {
   g.fromTo("#bars", { "--k": 0 }, { "--k": 1, duration: 1.2, ease: "power3.out", scrollTrigger: { trigger: "#bars", start: "top 85%" } });

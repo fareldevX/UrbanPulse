@@ -1,12 +1,5 @@
-/* ==========================================================
-   analitik.css - page styles for analitik.html
-   Token-driven panels. Flat solid fills, no chart library.
-   Interaction motion stays short: color, border and transform.
-   ========================================================== */
-
 [hidden]{display:none}
 
-/* ---------- Hero ---------- */
 .an-hero{
   padding:56px 0 40px;
   background:var(--bg-2);
@@ -29,7 +22,6 @@
   color:var(--text-muted);
 }
 
-/* ---------- Section rhythm ---------- */
 .an-sec{padding-block:40px}
 .an-sec:last-of-type{padding-bottom:84px}
 .an-sec-head{margin-bottom:20px}
@@ -45,7 +37,6 @@
   color:var(--text-muted);
 }
 
-/* ---------- KPI row ---------- */
 .an-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
 .an-kpi{
   display:flex;
@@ -69,7 +60,6 @@
 .an-kpi-label{font-size:var(--fs-sm);font-weight:600;color:var(--text-muted)}
 .an-kpi-sub{font-size:var(--fs-xs);color:var(--text-dim)}
 
-/* ---------- Breakdown panels ---------- */
 .an-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
 .an-panel{padding:22px}
 .an-panel h3{margin:0 0 4px}
@@ -102,7 +92,6 @@
 }
 .an-bar-val b{color:var(--text)}
 
-/* ---------- Trend ---------- */
 .an-trend{margin-top:6px}
 .an-cols{display:flex;align-items:stretch;gap:2px;height:170px}
 .an-col{flex:1 1 0;min-width:0;display:flex;flex-direction:column;justify-content:flex-end}
@@ -129,7 +118,6 @@
 }
 .an-col-lbl--mini{display:none;font-size:.6rem}
 
-/* ---------- Rank ---------- */
 .an-rank{list-style:none;margin:0;padding:0}
 .an-rank-row{
   display:grid;
@@ -162,7 +150,6 @@
 }
 .an-rank-votes b{color:var(--text);font-weight:800}
 
-/* ---------- Table ---------- */
 .an-table-head{
   display:flex;
   flex-wrap:wrap;
@@ -212,7 +199,6 @@
 .an-tag--medium{color:var(--st-pending);border-color:rgba(245,158,11,.4);background:rgba(245,158,11,.1)}
 .an-tag--low{color:var(--text-muted)}
 
-/* ---------- Responsive ---------- */
 @media (max-width:720px){
   .an-hero{padding:40px 0 32px}
   .an-sec{padding-block:28px}
@@ -227,7 +213,6 @@
   .an-panel{padding:18px}
 }
 
-/* stacked table: one card per report, no horizontal overflow */
 @media (max-width:860px){
   .an-table-wrap{overflow-x:visible}
   .an-table thead{display:none}

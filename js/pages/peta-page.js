@@ -1,4 +1,3 @@
-/* peta.html motion: spatial reveal of the console and map. Uses GSAP + ScrollTrigger from the CDN. */
 document.addEventListener("DOMContentLoaded", () => {
   const g = window.gsap;
   if (
@@ -85,7 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       0.95,
     );
-  // On small screens the report list sits below the map: reveal rows as they scroll into view.
   if (window.ScrollTrigger)
     g.matchMedia().add("(max-width: 820px)", () => {
       window.ScrollTrigger.batch(".mp-row", {

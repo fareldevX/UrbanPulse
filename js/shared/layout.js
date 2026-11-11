@@ -1,6 +1,3 @@
-/* UrbanPulse shell: injects the sticky navbar, fullscreen mobile menu and footer on every page.
-   Usage: <div id="app-navbar"></div> ... <main>...</main> ... <div id="app-footer"></div>
-          <script src="js/layout.js"></script>   (GSAP + ScrollTrigger are used when loaded before this file) */
 (function () {
   const NAV = [
     { href: "index.html#home", label: "Home", m: true },
@@ -25,8 +22,6 @@
     up: svg('<path d="M12 19V5M6 11l6-6 6 6"/>', 14, 2.4),
     x: svg('<path d="M6 6l12 12M18 6 6 18"/>', 20, 2.2),
   };
-  // Sesi akun dibaca langsung dari localStorage; sumber kebenarannya js/services/authStore.js
-  // dan kunci di bawah harus sama dengan kunci di berkas itu.
   const SESSION_KEY = "urbanpulse.session.v1";
   const USERS_KEY = "urbanpulse.users.v1";
   const readSession = () => {
@@ -157,7 +152,6 @@
   if (window.gsap && !reduce.matches) root.classList.add("has-gsap");
   if (!nav) return;
 
-  /* ---- sticky navbar: scrolled state + page progress hairline ---- */
   let ticking = false;
   const onScroll = () => {
     if (ticking) return;
@@ -175,7 +169,6 @@
   onScroll();
   addEventListener("scroll", onScroll, { passive: true });
 
-  /* ---- active item: sliding indicator + section scroll-spy (landing page) ---- */
   const links = [...document.querySelectorAll("#upLinks a")],
     menuLinks = [...document.querySelectorAll(".up-menu-list a")],
     ind = $(".up-nav-ind");
@@ -223,7 +216,6 @@
   addEventListener("resize", place);
   if (document.fonts) document.fonts.ready.then(place);
 
-  /* ---- fullscreen mobile menu ---- */
   let open = false,
     tl = null;
   const closeBtn = $(".up-menu-close"),
@@ -384,7 +376,6 @@
     if (e.matches) closeMenu(true);
   });
 
-  /* ---- footer: fitted wordmark, back-to-top, entrance + scroll-driven motion ---- */
   const foot = $("#upFoot"),
     mark = $("#upMark"),
     inner = mark && $(".up-foot-mark-in", mark);
@@ -408,7 +399,6 @@
       try {
         localStorage.removeItem(SESSION_KEY);
       } catch {
-        /* storage unavailable */
       }
       location.href = "index.html";
     });

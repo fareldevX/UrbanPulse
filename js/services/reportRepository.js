@@ -71,7 +71,6 @@ function load() {
   try {
     raw = localStorage.getItem(KEY);
   } catch {
-    /* storage unavailable: memory only */
   }
   if (raw !== null) {
     try {
@@ -84,7 +83,6 @@ function load() {
     }
   }
   if (!list) {
-    // seed only when key is absent (or unreadable)
     list = initialReports.map(normalize);
     try {
       localStorage.setItem(KEY, JSON.stringify(list));
@@ -214,7 +212,6 @@ export function subscribe(fn) {
   return () => window.removeEventListener(EVT, h);
 }
 
-// Cross-tab sync
 window.addEventListener("storage", (e) => {
   if (e.key === KEY || e.key === null) {
     mem = null;

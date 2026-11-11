@@ -1,6 +1,3 @@
-/* UrbanPulse auth pages: sign in and register.
-   Reuses tokens from theme.css. Flat surfaces only, one accent color on dark panels. */
-
 .auth-shell{padding-block:clamp(32px,6vw,72px)}
 .auth-wrap{display:flex;justify-content:center}
 .auth-card{width:100%;max-width:540px}
@@ -27,7 +24,6 @@
 .input[aria-invalid="true"],.select[aria-invalid="true"],.textarea[aria-invalid="true"]{border-color:var(--st-rejected)}
 .auth-submit{justify-content:center;width:100%;min-height:48px;margin-top:4px}
 
-/* Account type picker: two clear radio cards */
 .auth-rolefield{border:0;margin:0;padding:0;display:grid;gap:12px}
 .auth-rolefield legend{padding:0}
 .auth-role{position:relative;display:block;cursor:pointer}

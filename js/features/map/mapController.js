@@ -11,7 +11,7 @@ import {
 } from "../../utils/icons.js";
 import { createReportForm } from "../reports/reportForm.js";
 
-const CENTER = [-7.7828, 110.3671]; // Yogyakarta (demo area)
+const CENTER = [-7.7828, 110.3671];
 const SLUG = {
   jalan: "road",
   lampu: "streetlight",
@@ -19,7 +19,6 @@ const SLUG = {
   banjir: "flood",
 };
 const rm = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
-// Only validated enum values reach this template (see repository.normalize).
 const icon = (r) =>
   window.L.divIcon({
     className: "",
@@ -64,7 +63,6 @@ export function initUrbanPulseMap(
     close() {},
   };
 
-  /* ---------- map stage ---------- */
   const canvas = h("div", { class: "mp-canvas" });
   const loader = h(
     "div",
@@ -164,7 +162,6 @@ export function initUrbanPulseMap(
     toastEl,
   );
 
-  /* ---------- sidebar (view mode) ---------- */
   let search = null,
     count,
     resetBtn,
@@ -308,7 +305,6 @@ export function initUrbanPulseMap(
   if (!view) root.classList.add("mp--report");
   root.replaceChildren(...sideEls, stage);
 
-  /* ---------- Leaflet ---------- */
   const map = L.map(canvas, { minZoom: 11, zoomControl: false }).setView(
     CENTER,
     13,
@@ -361,7 +357,6 @@ export function initUrbanPulseMap(
       map,
     });
 
-  /* ---------- state -> UI ---------- */
   const match = (r, skip) =>
     (skip === "cat" || cat === "all" || r.category === cat) &&
     (skip === "st" || !sts.size || sts.has(r.status)) &&

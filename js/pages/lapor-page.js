@@ -1,4 +1,3 @@
-/* lapor.html motion: sequential, directional reveals for the form steps. Uses GSAP + ScrollTrigger from the CDN. */
 document.addEventListener("DOMContentLoaded", () => {
   const g = window.gsap;
   if (
@@ -37,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       0.5,
     );
-  // Each step: hairline + heading wipe from the left, controls slide in from alternating sides.
   g.utils.toArray(".rp-step").forEach((s, i) => {
     const st = window.ScrollTrigger
       ? { trigger: s, start: "top 82%", once: true }

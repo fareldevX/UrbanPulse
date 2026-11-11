@@ -1,4 +1,3 @@
-// Menghubungkan beranda (Person 1) ke repository laporan yang sama dengan peta.
 import * as repo from "../../services/reportRepository.js";
 
 const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });

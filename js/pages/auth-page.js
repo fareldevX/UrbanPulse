@@ -1,7 +1,5 @@
-// UrbanPulse auth pages: sign in (masuk.html) and register (daftar.html).
-// Accounts and sessions live in localStorage via services/authStore.js. No server.
-import * as auth from "./services/authStore.js";
-import { anim, h } from "./utils/dom.js";
+import * as auth from "../services/authStore.js";
+import { anim, h } from "../utils/dom.js";
 
 const mode = document.body.dataset.auth;
 const form = document.getElementById(mode === "register" ? "register-form" : "login-form");
@@ -16,7 +14,6 @@ function clearInvalid() {
   for (const el of tracked) el.removeAttribute("aria-invalid");
 }
 
-// Error summary: role="alert" region that lists every message.
 function setAlert(title, messages) {
   if (!alertBox) return;
   const list = (Array.isArray(messages) ? messages : [messages]).filter(Boolean);
@@ -32,7 +29,6 @@ function setAlert(title, messages) {
   );
 }
 
-// Mark the offending fields and move focus to the first one.
 function fail(items, title) {
   for (const i of items) if (i.el) i.el.setAttribute("aria-invalid", "true");
   setAlert(title, items.map((i) => i.msg));
@@ -89,7 +85,6 @@ function initLogin() {
       return;
     }
     const msg = String(res.error || "Sign in failed.");
-    // Point the focus at the field the message is about, when it is clear.
     let el = null;
     if (/no account/i.test(msg)) el = username;
     else if (/wrong password/i.test(msg)) el = password;
@@ -142,7 +137,6 @@ function initRegister() {
       return;
     }
 
-    // Sign the new account in right away, then open the dashboard.
     let signed;
     try {
       signed = await auth.login(username.value.trim(), password.value);
@@ -162,7 +156,6 @@ function initRegister() {
   });
 }
 
-// Animasi masuk: sama seperti halaman lain (GSAP bila termuat, hormati reduced motion).
 function entrance() {
   const items = [...document.querySelectorAll(".auth-card, .auth-demo, .auth-switch")];
   if (!items.length) return;

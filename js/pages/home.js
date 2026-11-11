@@ -1,9 +1,7 @@
 (function () {
-  /* Video cinematic: letakkan file di assets/hero.mp4. Jika tidak ada, latar animasi kota tetap tampil. */
   const v = document.getElementById('heroVideo');
   if (v) v.addEventListener('canplay', () => v.classList.add('loaded'));
  
-  /* Siluet kota (fallback / lapisan bawah) */
   const city = document.getElementById('heroCity');
   if (city) {
     let x = 0, s = '', seed = 7;
@@ -18,8 +16,6 @@
     city.innerHTML = s;
   }
  
-  /* Feed laporan terbaru & angka statistik diisi dari repository: js/features/home/homeLive.js */
-  /* Hitung angka statistik saat terlihat */
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (!e.isIntersecting) return;
     io.unobserve(e.target);
@@ -33,7 +29,6 @@
   }), { threshold: .6 });
   document.querySelectorAll('[data-count]').forEach(el => io.observe(el));
  
-  /* Demo voting komunitas */
   document.querySelectorAll('.vote-item').forEach(item => {
     const btn = item.querySelector('.vote-btn'), num = item.querySelector('.vnum'), bar = item.querySelector('.vbar i');
     let n = +num.textContent, base = n;

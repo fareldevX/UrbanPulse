@@ -1,7 +1,3 @@
-/* UrbanPulse dashboard: resident, officer, and locked states.
-   Reuses tokens from theme.css. Flat surfaces only, one accent color.
-   Tables collapse into stacked label/value rows on small screens. */
-
 .dash-shell{padding-block:clamp(28px,5vw,56px)}
 .dash-noscript{color:var(--text-muted);font-size:var(--fs-sm)}
 

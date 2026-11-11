@@ -1,4 +1,3 @@
-/* UrbanPulse landing sections after the hero (story, report anatomy, timeline, priority, flow, impact, CTA). */
 .sx{position:relative;min-height:100svh;display:flex;align-items:center}
 .sx-kicker{font:600 .72rem ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-light);margin:0 0 14px}
 .sx h2,.fx h2{font-size:clamp(2rem,4.6vw,4rem);letter-spacing:-.04em;line-height:1.02;margin:0 0 16px}
@@ -8,7 +7,6 @@
 .seg button[aria-pressed=true]{background:var(--text);color:var(--bg)}
 .seg button:disabled{opacity:.4;cursor:not-allowed}
 
-/* 01 story */
 .story{display:block;padding-block:6vh 4vh}
 .story-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:6vw;align-items:start}
 .story-stage{position:sticky;top:calc(var(--nav-h) + 24px);height:calc(100svh - var(--nav-h) - 48px);display:flex;flex-direction:column;gap:14px}
@@ -36,7 +34,6 @@
 .sdg-note summary::-webkit-details-marker{display:none}.sdg-note summary::after{content:"+";color:var(--accent-light)}
 .sdg-note details[open] summary::after{content:"\2013"}.sdg-note details p{margin:10px 0 0;font-size:var(--fs-sm)}
 
-/* 02 to 04 */
 .fx{min-height:100svh;display:flex;align-items:center;padding-block:12vh;border-top:1px solid var(--border)}
 .fx .container{width:100%}.fx .lead{max-width:46ch}.fx h2{max-width:18ch}
 .fx-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6vw;align-items:center}
@@ -78,7 +75,6 @@
 .pr-btn{min-height:44px;padding:9px 14px;background:transparent;border:1px solid var(--border-strong);border-radius:2px;color:var(--text);font:700 .72rem var(--font);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:border-color .2s,color .2s,background .2s}
 .pr-btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent-light)}.pr-btn:active:not(:disabled){transform:scale(.96)}.pr-btn:disabled{background:var(--accent);border-color:var(--accent);color:#04120d;cursor:default}
 
-/* 05 flow: scrolls sideways on its own by default, pinned + scrubbed when JS enables it */
 .flow-s{display:block;min-height:0;border-top:1px solid var(--border)}
 .flow-pin{display:flex;flex-direction:column;justify-content:center;gap:5vh;min-height:100svh;padding-block:12vh 8vh}
 .flow-top{width:100%;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px}.flow-top h2{margin:0;max-width:14ch}
@@ -94,7 +90,6 @@
 .flow.is-pinned .flow-track{overflow:visible;width:max-content;scroll-snap-type:none;padding-left:max(20px,calc((100vw - var(--container)) / 2 + 20px))}
 .flow.is-pinned .st{flex-basis:min(36vw,460px)}.flow.is-pinned .flow-bar{display:block}
 
-/* 06 impact */
 .impact{background:var(--bg-2);border-top:1px solid var(--border)}
 .impact-grid{width:100%;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:6vw;align-items:center;padding-block:10vh}
 .kpis{display:grid;grid-template-columns:1fr 1fr;margin:32px 0 0;border-top:1px solid var(--border-strong)}
@@ -109,7 +104,6 @@ html:not(.has-gsap) .bar-t b{transition:transform .7s cubic-bezier(.2,.8,.2,1)}
 .bar-v{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
 .bars-foot{margin:16px 0 0;font-size:var(--fs-xs);color:var(--text-dim)}
 
-/* 07 cta */
 .cta-x{flex-direction:column;justify-content:center;align-items:stretch;overflow:hidden;border-top:1px solid var(--border);padding-top:10vh}
 .cta-h{display:grid;margin:0 0 6vh;font-size:clamp(3rem,11vw,10rem);line-height:.92;letter-spacing:-.05em}
 .cta-h span:nth-child(2){padding-left:8vw;color:var(--text-muted)}.cta-h span:nth-child(3){padding-left:16vw;color:var(--accent-light)}

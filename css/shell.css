@@ -1,5 +1,3 @@
-/* UrbanPulse shell: sticky navbar, fullscreen mobile menu, editorial footer.
-   Namespaced (.up-nav-*, .up-menu-*, .up-foot-*); reuses tokens from theme.css. */
 html.up-lock {
   overflow: hidden;
 }
@@ -32,7 +30,6 @@ main:focus {
   text-transform: uppercase;
 }
 
-/* ---------- Navbar ---------- */
 .up-nav {
   position: sticky;
   top: 0;
@@ -267,7 +264,6 @@ main:focus {
   }
 }
 
-/* ---------- Fullscreen mobile menu ---------- */
 .up-menu {
   position: fixed;
   inset: 0;
@@ -442,7 +438,6 @@ html.has-gsap .up-menu {
   }
 }
 
-/* ---------- Footer ---------- */
 .up-foot {
   position: relative;
   background: var(--bg-2);
@@ -686,7 +681,6 @@ html.has-gsap .up-foot-mark:not(.is-in) .l {
   }
 }
 
-/* Area akun di navbar dan menu (dipakai js/layout.js). */
 .up-nav-user {
   display: inline-flex;
   align-items: center;
@@ -734,8 +728,6 @@ html.has-gsap .up-foot-mark:not(.is-in) .l {
   }
 }
 
-/* The navbar now carries seven items: keep every label on one line inside the
-   1200px shell and tighten the row on small desktops. */
 .up-nav-links a,
 .up-nav-act a,
 .up-nav-act button,

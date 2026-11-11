@@ -1,10 +1,4 @@
-/* ==========================================================
-   WargaCare - Global Theme (UrbanPulse Design System)
-   Dipakai bersama: Peta, Form, Detail, Dashboard.
-   Jangan ubah token di sini tanpa kabar ke tim.
-   ========================================================== */
 :root {
-  /* Warna */
   --bg: #0b1120;
   --bg-2: #0f172a;
   --surface: #131c31;
@@ -19,12 +13,10 @@
   --text: #f1f5f9;
   --text-muted: #94a3b8;
   --text-dim: #64748b;
-  /* Status laporan (dipakai kanban/timeline/peta) */
   --st-pending: #f59e0b;
   --st-progress: #38bdf8;
   --st-resolved: #10b981;
   --st-rejected: #f87171;
-  /* Tipografi */
   --font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --fs-xs: 0.75rem;
   --fs-sm: 0.875rem;
@@ -33,7 +25,6 @@
   --fs-xl: 1.5rem;
   --fs-2xl: 2rem;
   --fs-3xl: clamp(2rem, 5vw, 3.25rem);
-  /* Bentuk */
   --r-sm: 8px;
   --r-md: 12px;
   --r-lg: 18px;
@@ -112,7 +103,6 @@ p {
   color: #04120d;
 }
 
-/* ---------- Utilitas ---------- */
 .container {
   width: 100%;
   max-width: var(--container);
@@ -141,7 +131,6 @@ p {
   white-space: nowrap;
 }
 
-/* ---------- Komponen dasar ---------- */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -257,7 +246,6 @@ p {
   margin-bottom: 6px;
 }
 
-/* ---------- Navbar ---------- */
 .navbar {
   position: sticky;
   top: 0;
@@ -381,7 +369,6 @@ p {
   }
 }
 
-/* ---------- Footer ---------- */
 .footer {
   background: var(--bg-2);
   border-top: 1px solid var(--border);

@@ -10,7 +10,6 @@ const kb = (n) => (n >= 1048576 ? `${(n / 1048576).toFixed(1)} MB` : `${Math.max
 const rm = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 const G = () => (window.gsap && !rm() ? window.gsap : null);
 
-// Native FileReader + Canvas: resize to <=1200px, JPEG, retry smaller if the payload is too big.
 function compress(file) {
   return new Promise((ok, no) => {
     if (!TYPES.includes(file.type)) return no(new Error("Photo must be a JPG, PNG, or WebP file."));
@@ -44,7 +43,6 @@ export function createReportForm({ mount, stage, map }) {
     h("h2", { class: "rp-step-h" }, h("span", { class: "n" }, n), title), help ? h("p", { class: "rp-help" }, help) : null, ...body);
   const pulse = (e) => { const g = G(); if (g && e) g.fromTo(e, { scale: 0.4 }, { scale: 1, duration: 0.45, ease: "back.out(3)", clearProps: "transform" }); };
 
-  /* 01 location */
   const readout = h("output", { class: "rp-coords", "aria-live": "polite" }, "No location selected");
   const pickBtn = h("button", { type: "button", class: "rp-btn rp-btn--solid", onclick: () => startPick() }, icoEl(UI.pin, 16), "Pick on map");
   const clearBtn = h("button", { type: "button", class: "rp-btn", hidden: true, onclick: () => clearLoc() }, "Remove");
@@ -52,7 +50,6 @@ export function createReportForm({ mount, stage, map }) {
   const s1 = step("01", "loc", "Location", "Required. A report cannot be saved without coordinates. After you press the button, click the map to drop a pin, then drag it to fine-tune.",
     h("div", { class: "rp-loc" }, readout, h("div", { class: "rp-loc-a" }, pickBtn, clearBtn)), errP("loc"));
 
-  /* 02 type */
   const radio = (name, value, onchange) => { const i = h("input", { type: "radio", name, value, class: "rp-vh" }); i.addEventListener("change", () => onchange(i)); return i; };
   const catTiles = Object.entries(repo.CATEGORIES).map(([k, l]) => {
     const i = radio("category", k, () => { cat = k; err.cat.hidden = true; meter(); pulse(i.parentNode.querySelector(".rp-ck")); });
@@ -69,7 +66,6 @@ export function createReportForm({ mount, stage, map }) {
     h("p", { class: "rp-lbl" }, "How urgent is it?"),
     h("div", { class: "rp-seg", role: "radiogroup", "aria-label": "Urgency", "aria-describedby": "rp-urg-err" }, urgOpts), errP("urg"));
 
-  /* 03 details */
   const title = h("input", { class: "rp-in", type: "text", id: "rp-title", maxlength: "80", autocomplete: "off", placeholder: "e.g. Pothole at the Jl. Kaliurang bus shelter", "aria-describedby": "rp-title-err" });
   const desc = h("textarea", { class: "rp-in rp-ta", id: "rp-desc", rows: "5", maxlength: "500", placeholder: "What is wrong, how big is it, and what makes it risky? A crew should know what to bring.", "aria-describedby": "rp-desc-err rp-desc-n" });
   const descN = h("output", { class: "rp-n", id: "rp-desc-n" }, "0 / 500");
@@ -80,7 +76,6 @@ export function createReportForm({ mount, stage, map }) {
   title.addEventListener("input", () => { err.title.hidden = true; meter(); });
   desc.addEventListener("input", () => { err.desc.hidden = true; descN.textContent = `${desc.value.length} / 500`; descN.classList.toggle("is-ok", desc.value.trim().length >= 20); meter(); });
 
-  /* 04 photo */
   const file = h("input", { type: "file", accept: TYPES.join(","), class: "rp-vh", id: "rp-file", "aria-describedby": "rp-img-err" });
   const drop = h("label", { class: "rp-drop", for: "rp-file" }, icoEl(UI.upload, 22), h("span", { class: "rp-drop-t" }, h("strong", {}, "Drop a photo here, or browse"), h("small", {}, "JPG, PNG, or WebP up to 5 MB. Resized and compressed in your browser before it is stored.")));
   const prevImg = h("img", { alt: "Selected photo preview" }), prevMeta = h("div", { class: "rp-prev-m" });
@@ -103,7 +98,6 @@ export function createReportForm({ mount, stage, map }) {
     finally { compressing = false; busyEl.hidden = true; refreshSubmit(); meter(); }
   }
 
-  /* submit + states */
   const summary = h("p", { class: "rp-sum", role: "alert" });
   const spin = h("span", { class: "mp-spin", hidden: true }), subL = h("span", {}, "Submit report");
   const submit = h("button", { type: "submit", class: "rp-submit" }, subL, spin);
@@ -114,7 +108,6 @@ export function createReportForm({ mount, stage, map }) {
   const pickBar = h("div", { class: "rp-pickbar", hidden: true, role: "status" }, h("span", {}, "Click the map to place the pin"), h("button", { type: "button", onclick: () => { cancelPick(); pickBtn.focus(); } }, "Cancel"));
   stage.append(pickBar);
 
-  /* location picking */
   function setCoords(lat, lng) {
     coords = { lat: +lat.toFixed(6), lng: +lng.toFixed(6) };
     readout.textContent = `${coords.lat}, ${coords.lng}`; readout.classList.add("is-set");

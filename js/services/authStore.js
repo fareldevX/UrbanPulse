@@ -1,7 +1,3 @@
-// Akun dan sesi UrbanPulse disimpan di localStorage, tanpa backend.
-// Kata sandi di-hash SHA-256 + salt acak per akun. Ini demo, BUKAN keamanan
-// produksi: siapa pun yang bisa membuka perangkat ini bisa membaca atau
-// mengubah data di localStorage.
 const USERS_KEY = "urbanpulse.users.v1";
 const SESSION_KEY = "urbanpulse.session.v1";
 const EVT = "urbanpulse:session-changed";
@@ -14,8 +10,6 @@ const hex = (buf) => [...new Uint8Array(buf)].map((b) => b.toString(16).padStart
 const uid = () => `U-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`;
 const newSalt = () => hex(crypto.getRandomValues(new Uint8Array(8)));
 
-// SHA-256 lewat WebCrypto (butuh localhost atau https). Kalau tidak tersedia,
-// pakai hash sederhana supaya halaman tetap jalan - kualitasnya lebih rendah.
 async function digest(text) {
   if (globalThis.crypto?.subtle) {
     return hex(await crypto.subtle.digest("SHA-256", enc.encode(text)));
@@ -43,7 +37,6 @@ const write = (key, value) => {
   }
 };
 
-// Dua akun contoh supaya alur "admin menyetujui admin" bisa dicoba tanpa backend.
 const SEED = [
   { name: "Demo Admin", username: "admin", password: "admin123", role: "admin", status: "active" },
   { name: "Demo Resident", username: "warga", password: "warga123", role: "user", status: "active" },
@@ -105,7 +98,6 @@ export function isSignedIn() {
   return !!getSession();
 }
 
-/** Admin aktif: hanya role admin dengan status active yang boleh mengelola data. */
 export function isActiveAdmin() {
   const s = getSession();
   return !!s && s.role === "admin" && s.status === "active";
@@ -113,10 +105,6 @@ export function isActiveAdmin() {
 
 const USERNAME_RE = /^[a-zA-Z0-9._-]{3,20}$/;
 
-/**
- * Daftar akun baru. Role "user" langsung aktif; role "admin" masuk status
- * pending dan baru bisa dipakai setelah disetujui admin aktif lain.
- */
 export async function register({ name, username, password, role }) {
   const list = await load();
   const cleanName = String(name ?? "").trim();
@@ -155,11 +143,10 @@ export async function login(username, password) {
 }
 
 export function logout() {
-  try { localStorage.removeItem(SESSION_KEY); } catch { /* storage unavailable */ }
+  try { localStorage.removeItem(SESSION_KEY); } catch {}
   emit();
 }
 
-/** Setujui permintaan akun admin. Hanya admin aktif yang boleh memutuskan. */
 export async function approveAdmin(userId) {
   const actor = getSession();
   if (!isActiveAdmin()) return { ok: false, error: "Only an active admin can approve admin accounts." };
@@ -191,7 +178,6 @@ export async function rejectAdmin(userId) {
 export function subscribe(fn) {
   const h = (e) => fn(e.detail);
   window.addEventListener(EVT, h);
-  // Perubahan dari tab lain ikut terbaca.
   const s = (e) => { if (e.key === USERS_KEY || e.key === SESSION_KEY || e.key === null) { users = null; load().then(() => fn({ session: getSession() })); } };
   window.addEventListener("storage", s);
   return () => { window.removeEventListener(EVT, h); window.removeEventListener("storage", s); };

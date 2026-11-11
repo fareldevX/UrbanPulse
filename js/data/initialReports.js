@@ -1,4 +1,3 @@
-// Data simulasi wilayah Yogyakarta. Deterministik: tidak memakai Date.now()/Math.random().
 const L = { pending: "Report Received", "in-progress": "In Progress", resolved: "Resolved" };
 const ORDER = ["pending", "in-progress", "resolved"];
 const BASE = Date.parse("2026-11-09T00:00:00Z");
