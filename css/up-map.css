@@ -25,6 +25,9 @@
 
 /* ── Filter chips — richer interactive styles ─── */
 .up-map-chip{
+  display:inline-flex;
+  align-items:center;
+  min-height:44px;
   background:transparent;
   color:var(--text-muted);
   border:1px solid var(--border-strong);
@@ -48,7 +51,7 @@
 .up-map-chip:active{transform:scale(.96)}
 
 .map-section{padding:36px 0 72px}
-.up-map-reset{flex:none;background:none;border:0;color:var(--accent);font-size:13px;font-weight:600;text-decoration:underline;cursor:pointer;padding:8px}
+.up-map-reset{flex:none;display:inline-flex;align-items:center;min-height:44px;background:none;border:0;color:var(--accent);font-size:13px;font-weight:600;text-decoration:underline;cursor:pointer;padding:8px}
 .up-map-stage{position:relative;height:clamp(380px,50vh,520px);border-top:1px solid var(--border)}
 .up-map-canvas{position:absolute;inset:0;background:var(--bg-2)}
 .up-map-canvas .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.95) contrast(.9) saturate(.45)}
@@ -94,7 +97,7 @@
 .up-detail-top h3{margin:0;font-size:18px}
 .up-detail-id{font:600 13px ui-monospace,monospace;color:var(--text-muted)}
 .up-detail-x{
-  width:36px;height:36px;border:1px solid var(--border);
+  width:44px;height:44px;border:1px solid var(--border);
   border-radius:var(--r-sm);background:none;color:var(--text);font-size:20px;cursor:pointer;
   transition:background .2s,border-color .2s,color .2s;
   display:grid;place-items:center;
@@ -150,3 +153,14 @@
   .up-detail,.up-report{top:auto;left:0;right:0;bottom:0;width:100%;max-height:72%;border-radius:var(--r-lg) var(--r-lg) 0 0;box-shadow:0 -4px 32px rgba(0,0,0,.5)}
 }
 @media (max-width:640px){.up-map-legend{display:none}}
+
+/* Touch targets: Leaflet zoom controls at 44px (WCAG 2.5.8).
+   Leaflet's own .leaflet-touch rule is more specific, so match it here. */
+.leaflet-touch .leaflet-bar a.leaflet-control-zoom-in,
+.leaflet-touch .leaflet-bar a.leaflet-control-zoom-out,
+.leaflet-bar a.leaflet-control-zoom-in,
+.leaflet-bar a.leaflet-control-zoom-out {
+  width: 44px;
+  height: 44px;
+  line-height: 44px;
+}
