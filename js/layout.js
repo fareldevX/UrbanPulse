@@ -8,7 +8,8 @@
     { href: "index.html#features", label: "Features" },
     { href: "index.html#how-it-works", label: "How it works" },
     { href: "peta.html", label: "Report Map" },
-    { href: "statistik.html", label: "Statistics" },
+    { href: "analitik.html", label: "Analytics" },
+    { href: "dashboard.html", label: "Dashboard" },
   ];
   const CATS = [
     ["road", "Road damage"],
@@ -24,6 +25,22 @@
     up: svg('<path d="M12 19V5M6 11l6-6 6 6"/>', 14, 2.4),
     x: svg('<path d="M6 6l12 12M18 6 6 18"/>', 20, 2.2),
   };
+  // Sesi akun dibaca langsung dari localStorage; sumber kebenarannya js/services/authStore.js
+  // dan kunci di bawah harus sama dengan kunci di berkas itu.
+  const SESSION_KEY = "urbanpulse.session.v1";
+  const USERS_KEY = "urbanpulse.users.v1";
+  const readSession = () => {
+    try {
+      const s = JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
+      const list = JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
+      const u = s && Array.isArray(list) ? list.find((x) => x.id === s.userId) : null;
+      return u ? { name: u.name, role: u.role, status: u.status } : null;
+    } catch {
+      return null;
+    }
+  };
+  const sess = readSession();
+  const roleLabel = sess ? (sess.role === "admin" ? "Officer" : "Resident") : "";
   const page = location.pathname.split("/").pop() || "index.html";
   const hash = (h) => (h.includes("#") ? h.split("#")[1] : "");
   const pad = (n) => String(n).padStart(2, "0");
@@ -45,6 +62,9 @@
         <span class="up-nav-ind" aria-hidden="true"></span>
       </nav>
       <div class="up-nav-act">
+        ${sess
+          ? `<span class="up-nav-user"><i>${roleLabel}</i>${sess.name}</span><button class="up-nav-out" type="button" id="upSignout">Sign out</button>`
+          : `<a class="up-nav-signin" href="masuk.html">Sign in</a>`}
         <a class="up-nav-cta" href="lapor.html"><span>Report an Issue</span>${ico.arrow}</a>
         <button class="up-nav-toggle" id="upToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="upMenu"><span class="up-burger" aria-hidden="true"><i></i><i></i></span><span>Menu</span></button>
       </div>
@@ -64,6 +84,9 @@
         </ol>
       </nav>
       <div class="up-menu-foot">
+        ${sess
+          ? `<p class="up-mono">Signed in as ${sess.name} &middot; ${roleLabel}${sess.status === "pending" ? " (waiting for approval)" : ""}</p><button class="up-menu-out" type="button" id="upMenuOut">Sign out</button>`
+          : `<p class="up-mono">No account yet? <a href="daftar.html">Create one</a>, or <a href="masuk.html">sign in</a>.</p>`}
         <a class="up-menu-cta" href="lapor.html"><span>Report an Issue</span>${ico.arrow}</a>
         <p class="up-mono">Smart City &amp; Urban Innovation &middot; SDG 9 &amp; 11</p>
       </div>
@@ -370,6 +393,19 @@
       new ResizeObserver(fit).observe(mark.parentElement);
     else addEventListener("resize", fit);
   }
+  const signOut = (btn) =>
+    btn &&
+    btn.addEventListener("click", () => {
+      try {
+        localStorage.removeItem(SESSION_KEY);
+      } catch {
+        /* storage unavailable */
+      }
+      location.href = "index.html";
+    });
+  signOut($("#upSignout"));
+  signOut($("#upMenuOut"));
+
   const top = $("#upTop");
   if (top)
     top.addEventListener("click", () =>

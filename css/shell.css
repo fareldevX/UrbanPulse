@@ -66,6 +66,7 @@ main:focus {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  min-height: 44px;
   color: var(--text);
   font-weight: 800;
   font-size: 1.15rem;
@@ -217,7 +218,10 @@ main:focus {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
-  padding: 10px 0;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0;
 }
 .up-burger {
   position: relative;
@@ -242,7 +246,7 @@ main:focus {
   transform: scaleX(0.6);
   transform-origin: right;
 }
-@media (max-width: 1020px) {
+@media (max-width: 1120px) {
   .up-nav-links a i {
     display: none;
   }
@@ -250,7 +254,7 @@ main:focus {
     padding: 10px 8px;
   }
 }
-@media (max-width: 860px) {
+@media (max-width: 1120px) {
   .up-nav-in {
     grid-template-columns: 1fr auto;
   }
@@ -556,6 +560,9 @@ html.has-gsap .up-menu {
   color: var(--text-dim);
 }
 .up-foot-cats a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   color: var(--text-muted);
   border-bottom: 1px solid var(--border-strong);
   padding-bottom: 2px;
@@ -632,6 +639,7 @@ html.has-gsap .up-foot-mark:not(.is-in) .l {
   background: none;
   border: 1px solid var(--border-strong);
   color: var(--text);
+  min-height: 44px;
   padding: 9px 14px;
   font: 700 0.72rem var(--font);
   letter-spacing: 0.08em;
@@ -675,5 +683,80 @@ html.has-gsap .up-foot-mark:not(.is-in) .l {
   .up-foot-bottom {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+/* Area akun di navbar dan menu (dipakai js/layout.js). */
+.up-nav-user {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  max-width: 30ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.up-nav-user i {
+  flex: 0 0 auto;
+}
+.up-nav-out,
+.up-nav-signin,
+.up-menu-out {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  background: none;
+  border: 1px solid var(--border-strong);
+  border-radius: 2px;
+  color: var(--text);
+  font: 700 0.78rem var(--font);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0 14px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.up-nav-out:hover,
+.up-nav-signin:hover,
+.up-menu-out:hover {
+  border-color: var(--accent);
+  color: var(--accent-light);
+}
+.up-menu-out {
+  justify-content: center;
+  width: 100%;
+}
+@media (max-width: 1120px) {
+  .up-nav-user {
+    display: none;
+  }
+}
+
+/* The navbar now carries seven items: keep every label on one line inside the
+   1200px shell and tighten the row on small desktops. */
+.up-nav-links a,
+.up-nav-act a,
+.up-nav-act button,
+.up-nav-user,
+.up-nav-cta,
+.up-nav-signin,
+.up-nav-out,
+.up-menu-out {
+  white-space: nowrap;
+}
+
+@media (min-width: 1121px) {
+  .up-nav-in {
+    gap: 16px;
+  }
+  .up-nav-links {
+    gap: 2px;
+  }
+  .up-nav-links a {
+    padding: 10px 8px;
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
   }
 }

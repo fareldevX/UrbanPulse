@@ -1,0 +1,57 @@
+/* UrbanPulse auth pages: sign in and register.
+   Reuses tokens from theme.css. Flat surfaces only, one accent color on dark panels. */
+
+.auth-shell{padding-block:clamp(32px,6vw,72px)}
+.auth-wrap{display:flex;justify-content:center}
+.auth-card{width:100%;max-width:540px}
+
+.auth-head{margin-bottom:20px}
+.auth-eyebrow{margin:0 0 6px;font:700 .72rem var(--font);color:var(--accent-light)}
+.auth-title{margin:0 0 8px;font-size:var(--fs-2xl)}
+.auth-lead{margin:0;color:var(--text-muted);font-size:var(--fs-sm)}
+
+.auth-alert{margin:0 0 18px;padding:12px 14px;border:1px solid var(--border-strong);
+  border-radius:var(--r-md);background:var(--bg-2)}
+.auth-alert[hidden]{display:none}
+.auth-alert:focus{outline:2px solid var(--accent-light);outline-offset:2px}
+.auth-alert--error{border-color:rgba(248,113,113,.4);background:rgba(248,113,113,.08)}
+.auth-alert--info{border-color:rgba(16,185,129,.35)}
+.auth-alert-title{margin:0;font-weight:700;color:var(--text)}
+.auth-alert-list{margin:8px 0 0;padding-left:18px;color:var(--text-muted);font-size:var(--fs-sm)}
+.auth-alert-list li+li{margin-top:2px}
+.auth-alert-body{margin:6px 0 0;font-size:var(--fs-sm);color:var(--text-muted)}
+
+.auth-form{display:grid;gap:16px}
+.auth-field{display:block}
+.auth-hint{margin:6px 0 0;font-size:var(--fs-xs);color:var(--text-dim)}
+.input[aria-invalid="true"],.select[aria-invalid="true"],.textarea[aria-invalid="true"]{border-color:var(--st-rejected)}
+.auth-submit{justify-content:center;width:100%;min-height:48px;margin-top:4px}
+
+/* Account type picker: two clear radio cards */
+.auth-rolefield{border:0;margin:0;padding:0;display:grid;gap:12px}
+.auth-rolefield legend{padding:0}
+.auth-role{position:relative;display:block;cursor:pointer}
+.auth-role input{position:absolute;top:0;left:0;width:1px;height:1px;margin:0;opacity:0}
+.auth-role-body{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;min-height:44px;
+  padding:14px 16px;border:1px solid var(--border-strong);border-radius:var(--r-md);background:var(--bg-2)}
+.auth-role-mark{grid-column:1;grid-row:1/span 2;align-self:start;width:18px;height:18px;margin-top:3px;
+  border:2px solid var(--border-strong);border-radius:var(--r-full)}
+.auth-role input:checked ~ .auth-role-body{border-color:var(--accent);background:var(--accent-soft)}
+.auth-role input:checked ~ .auth-role-body .auth-role-mark{background:var(--accent);border-color:var(--accent)}
+.auth-role input:focus-visible ~ .auth-role-body{outline:2px solid var(--accent-light);outline-offset:2px}
+.auth-role-title{grid-column:2;grid-row:1;font-weight:700}
+.auth-role-desc{grid-column:2;grid-row:2;font-size:var(--fs-sm);color:var(--text-muted)}
+
+.auth-switch{margin:18px 0 0;font-size:var(--fs-sm);color:var(--text-muted);text-align:center}
+.auth-demo{margin-top:22px;padding-top:18px;border-top:1px solid var(--border)}
+.auth-demo-title{margin:0 0 10px;font-weight:700;font-size:var(--fs-sm)}
+.auth-demo-line{margin:0 0 6px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;
+  font-size:var(--fs-sm);color:var(--text-muted)}
+.auth-demo-line span{color:var(--text)}
+.auth-demo code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:var(--fs-xs);
+  background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-sm);padding:2px 6px;color:var(--text)}
+.auth-demo-note{margin:10px 0 0;font-size:var(--fs-xs);color:var(--text-dim);max-width:60ch}
+
+@media(max-width:520px){
+  .auth-card{padding:20px}
+}

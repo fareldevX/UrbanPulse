@@ -133,7 +133,7 @@
 .hx-side{display:grid;gap:22px;align-self:start}
 .hx-layers{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .hx-layers .hx-kicker{flex:0 0 100%;margin:0 0 2px;color:var(--text-muted)}
-.hx-chip{font:inherit;font-size:var(--fs-xs);font-weight:700;cursor:pointer;color:var(--text-muted);background:transparent;border:1px solid var(--border-strong);border-radius:var(--r-full);padding:7px 14px;transition:.2s}
+.hx-chip{display:inline-flex;align-items:center;min-height:44px;font:inherit;font-size:var(--fs-xs);font-weight:700;cursor:pointer;color:var(--text-muted);background:transparent;border:1px solid var(--border-strong);border-radius:var(--r-full);padding:7px 14px;transition:.2s}
 .hx-chip:hover{color:var(--text);border-color:var(--accent-light)}
 .hx-chip[aria-pressed=true]{background:var(--text);color:var(--bg);border-color:var(--text)}
 .hx-feed.feed{background:none;backdrop-filter:none;border:0;border-top:1px solid var(--border-strong);border-radius:0;padding:14px 0 0}

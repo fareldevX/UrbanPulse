@@ -1,4 +1,5 @@
 import { initialReports } from "../data/initialReports.js";
+import { getSession } from "./authStore.js";
 
 const KEY = "urbanpulse.reports.v1";
 const EVT = "urbanpulse:reports-changed";
@@ -20,6 +21,7 @@ function normalize(r) {
     description: String(r.description ?? "").slice(0, 1000), coordinates: { lat, lng },
     image: typeof r.image === "string" && r.image.startsWith("data:image/jpeg;base64,") ? r.image : null,
     status: r.status, upvotes: Math.max(0, Number(r.upvotes) | 0), createdAt: created,
+    ownerId: typeof r.ownerId === "string" && r.ownerId ? r.ownerId : null,
     updatedAt: Number.isNaN(Date.parse(r.updatedAt)) ? created : r.updatedAt,
     timeline: (Array.isArray(r.timeline) ? r.timeline : []).filter((t) => t && STATUSES[t.status])
       .map((t) => ({ status: t.status, label: String(t.label ?? TL[t.status]), timestamp: t.timestamp, note: String(t.note ?? "") })),
@@ -64,6 +66,8 @@ export function createReport(d) {
     title: String(d?.title ?? "").trim(), category: d?.category, urgency: d?.urgency,
     description: String(d?.description ?? "").trim(), coordinates: d?.coordinates, image: d?.image || null,
     status: "pending", upvotes: 0, createdAt: now, updatedAt: now,
+    // Laporan milik akun yang sedang login (dipakai dashboard "laporan saya").
+    ownerId: getSession()?.userId ?? null,
     timeline: [{ status: "pending", label: TL.pending, timestamp: now, note: "Report submitted successfully." }],
   });
   if (!r || !r.title || !r.description) throw new Error("Invalid report data.");

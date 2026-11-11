@@ -12,7 +12,7 @@ const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls)
 function stats(rs) {
   const done = rs.filter((r) => r.status === "resolved");
   const days = done.map((r) => (Date.parse(r.updatedAt) - Date.parse(r.createdAt)) / 864e5);
-  return { total: rs.length, pct: rs.length ? Math.round((done.length / rs.length) * 100) : 0,
+  return { total: rs.length, open: rs.length - done.length, pct: rs.length ? Math.round((done.length / rs.length) * 100) : 0,
     avg: days.length ? days.reduce((a, b) => a + b, 0) / days.length : 0, votes: rs.reduce((s, r) => s + r.upvotes, 0) };
 }
 
@@ -58,7 +58,7 @@ document.querySelectorAll(".hx-chip").forEach((c) => c.addEventListener("click",
 function render() {
   const rs = repo.getReports(), s = stats(rs);
   document.querySelectorAll("[data-live]").forEach((e) => { const v = s[e.dataset.live]; e.dataset.count = e.dataset.live === "avg" ? v.toFixed(1) : String(v); });
-  document.querySelectorAll("[data-live-text]").forEach((e) => { e.textContent = e.dataset.liveText === "pct" ? `${s.pct}%` : s.total.toLocaleString("en-US"); });
+  document.querySelectorAll("[data-live-text]").forEach((e) => { const k = e.dataset.liveText, v = s[k] ?? 0; e.textContent = k === "pct" ? `${v}%` : v.toLocaleString("en-US"); });
   renderPins(rs);
   const feed = document.getElementById("feedList");
   if (!feed) return;

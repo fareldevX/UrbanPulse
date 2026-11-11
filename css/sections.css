@@ -3,7 +3,7 @@
 .sx-kicker{font:600 .72rem ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-light);margin:0 0 14px}
 .sx h2,.fx h2{font-size:clamp(2rem,4.6vw,4rem);letter-spacing:-.04em;line-height:1.02;margin:0 0 16px}
 .seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--border-strong);border-radius:2px;overflow:hidden}
-.seg button{font:600 .72rem var(--font);letter-spacing:.08em;text-transform:uppercase;padding:9px 14px;background:transparent;color:var(--text-muted);border:0;border-right:1px solid var(--border);cursor:pointer;transition:background .2s,color .2s}
+.seg button{min-height:44px;font:600 .72rem var(--font);letter-spacing:.08em;text-transform:uppercase;padding:9px 14px;background:transparent;color:var(--text-muted);border:0;border-right:1px solid var(--border);cursor:pointer;transition:background .2s,color .2s}
 .seg button:last-child{border-right:0}.seg button:hover{color:var(--text)}.seg button:active{transform:scale(.97)}
 .seg button[aria-pressed=true]{background:var(--text);color:var(--bg)}
 .seg button:disabled{opacity:.4;cursor:not-allowed}
@@ -58,7 +58,7 @@
 .tl{margin-top:7vh}
 .tl-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px 24px;margin-bottom:6vh}
 .tl-meta h3{margin:0;font-size:clamp(1.4rem,2.6vw,2.2rem);letter-spacing:-.03em}.tl-meta span,.tl-meta a{font-size:var(--fs-xs)}
-.tl-meta a{color:var(--accent-light);text-decoration:underline;text-underline-offset:3px}
+.tl-meta a{display:inline-flex;align-items:center;min-height:44px;color:var(--accent-light);text-decoration:underline;text-underline-offset:3px}
 .tl-track{position:relative;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(210px,1fr);gap:28px;overflow-x:auto;padding:38px 0 12px}
 .tl-track::before,.tl-line{content:"";position:absolute;top:12px;left:0;right:0;height:2px;background:var(--border-strong)}
 .tl-line{background:var(--accent);transform-origin:left}
@@ -75,7 +75,7 @@
 .pr-meta i{width:8px;height:8px;border-radius:50%;background:var(--c)}
 .pr-bar{height:6px;background:var(--border);overflow:hidden}.pr-bar b{display:block;height:100%;background:var(--c);transform-origin:left;transform:scaleX(calc(var(--w) * var(--k,1)))}
 .pr-vote{display:flex;gap:12px;align-items:center}.pr-n{min-width:3ch;text-align:right;font-size:1.4rem;font-weight:800;font-variant-numeric:tabular-nums}
-.pr-btn{padding:9px 14px;background:transparent;border:1px solid var(--border-strong);border-radius:2px;color:var(--text);font:700 .72rem var(--font);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:border-color .2s,color .2s,background .2s}
+.pr-btn{min-height:44px;padding:9px 14px;background:transparent;border:1px solid var(--border-strong);border-radius:2px;color:var(--text);font:700 .72rem var(--font);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:border-color .2s,color .2s,background .2s}
 .pr-btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent-light)}.pr-btn:active:not(:disabled){transform:scale(.96)}.pr-btn:disabled{background:var(--accent);border-color:var(--accent);color:#04120d;cursor:default}
 
 /* 05 flow: scrolls sideways on its own by default, pinned + scrubbed when JS enables it */
