@@ -1,0 +1,331 @@
+/* ==========================================================
+   lapor.css — Mission Workflow theme for lapor.html
+   Using UrbanPulse Default Emerald / Green Palette.
+   ========================================================== */
+
+/* ── Hero section ─────────────────────────────────────────── */
+.lapor-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 72px 0 60px;
+  background: linear-gradient(
+    155deg,
+    rgba(11,17,32,1)   0%,
+    rgba(6,30,22,.96)  48%,
+    rgba(11,17,32,1)   100%
+  );
+  border-bottom: 1px solid rgba(16,185,129,.16);
+}
+
+/* ── Animated background ─────────────────────────────────── */
+.lapor-hero-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.lapor-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(16,185,129,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16,185,129,.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  animation: lapor-grid-pulse 10s ease-in-out infinite;
+}
+
+@keyframes lapor-grid-pulse {
+  0%, 100% { opacity: 0.4; background-size: 48px 48px; }
+  50%       { opacity: 0.85; background-size: 50px 50px; }
+}
+
+/* ── Ambient orbs ─────────────────────────────────────────── */
+.lapor-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  will-change: transform;
+}
+
+.lapor-orb-1 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(16,185,129,.16) 0%, transparent 70%);
+  top: -150px;
+  left: -100px;
+  animation: lapor-orb1 14s ease-in-out infinite alternate;
+}
+
+.lapor-orb-2 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(5,150,105,.12) 0%, transparent 70%);
+  bottom: -80px;
+  right: 10%;
+  animation: lapor-orb2 18s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes lapor-orb1 {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(60px,30px) scale(1.1); }
+}
+@keyframes lapor-orb2 {
+  from { transform: translate(0,0); }
+  to   { transform: translate(-40px,20px) scale(1.06); }
+}
+
+/* ── Decorative circular ring ─────────────────────────────── */
+.lapor-ring-anim {
+  position: absolute;
+  right: 8%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  border: 1px solid rgba(16,185,129,.14);
+  box-shadow:
+    0 0 0  20px rgba(16,185,129,.035),
+    0 0 0  60px rgba(16,185,129,.02),
+    0 0 0 100px rgba(16,185,129,.01);
+  animation: lapor-ring-spin 30s linear infinite;
+}
+
+.lapor-ring-anim::before {
+  content: "";
+  position: absolute;
+  inset: 20px;
+  border-radius: 50%;
+  border: 1px dashed rgba(16,185,129,.22);
+  animation: lapor-ring-spin 20s linear infinite reverse;
+}
+
+.lapor-ring-anim::after {
+  content: "";
+  position: absolute;
+  top: -4px; left: 50%;
+  transform: translateX(-50%);
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent-light);
+}
+
+@keyframes lapor-ring-spin {
+  from { transform: translateY(-50%) rotate(0deg); }
+  to   { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* ── Hero inner layout ─────────────────────────────────────── */
+.lapor-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.lapor-hero-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: center;
+}
+
+/* ── Eyebrow label ─────────────────────────────────────────── */
+.lapor-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  margin-bottom: 16px;
+}
+
+.lapor-eyebrow-dot {
+  display: block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent-ring);
+  animation: lapor-dot-pulse 2s ease-out infinite;
+}
+
+@keyframes lapor-dot-pulse {
+  0%  { box-shadow: 0 0 0 0 rgba(16,185,129,.7); }
+  70% { box-shadow: 0 0 0 10px rgba(16,185,129,0); }
+  100%{ box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+}
+
+/* ── Title ─────────────────────────────────────────────────── */
+.lapor-title {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 16px;
+  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -.04em;
+  margin: 0 0 20px;
+}
+
+.lapor-word {
+  display: inline-block;
+  color: var(--text);
+  opacity: 0;             /* revealed by GSAP */
+  transform: translateY(40px);
+}
+
+.lapor-word-accent {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 60%, #6ee7b7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.lapor-subtitle {
+  font-size: clamp(.9rem, 1.4vw, 1.05rem);
+  color: var(--text-muted);
+  max-width: 50ch;
+  line-height: 1.65;
+  margin: 0;
+  opacity: 0;             /* revealed by GSAP */
+  transform: translateY(16px);
+}
+
+/* ── Steps container ─────────────────────────────────────── */
+.lapor-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 260px;
+}
+
+/* ── Individual step ─────────────────────────────────────── */
+.lapor-step {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  opacity: 0;             /* revealed by GSAP */
+  transform: translateX(32px);
+}
+
+/* ── Step icon circle ────────────────────────────────────── */
+.lapor-step-icon {
+  position: relative;
+  flex: none;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  background: var(--accent-soft);
+  border: 1px solid rgba(16,185,129,.35);
+  border-radius: 50%;
+  color: var(--accent-light);
+  transition: background .3s, border-color .3s, box-shadow .3s;
+}
+
+.lapor-step-icon svg {
+  width: 22px;
+  height: 22px;
+  position: relative;
+  z-index: 1;
+}
+
+.lapor-step-icon:hover,
+.lapor-step:hover .lapor-step-icon {
+  background: rgba(16,185,129,.2);
+  border-color: var(--accent-light);
+  box-shadow: 0 0 20px rgba(16,185,129,.3);
+}
+
+/* ── Spinning ring on icon ───────────────────────────────── */
+.lapor-step-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px dashed rgba(16,185,129,.35);
+  animation: lapor-step-ring-spin 8s linear infinite;
+}
+
+@keyframes lapor-step-ring-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Step text ───────────────────────────────────────────── */
+.lapor-step-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.lapor-step-info strong {
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.lapor-step-info small {
+  font-size: .78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ── Connector line ──────────────────────────────────────── */
+.lapor-step-connector {
+  width: 2px;
+  height: 32px;
+  background: linear-gradient(to bottom, rgba(16,185,129,.4), rgba(16,185,129,.1));
+  margin-left: 25px;   /* center under icon (52/2 - 1) */
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+/* ── Map card enhancements (lapor-page specific) ─────────── */
+body.page-lapor .up-map {
+  border: 1px solid rgba(16,185,129,.22);
+  box-shadow: 0 0 0 1px rgba(16,185,129,.07), 0 20px 48px rgba(0,0,0,.45);
+}
+
+body.page-lapor .up-map-head {
+  background: linear-gradient(180deg, rgba(6,30,22,.4) 0%, transparent 100%);
+}
+
+/* ── Detail / Report panel ─────────────────────────────────── */
+body.page-lapor .up-report {
+  background: rgba(15,23,42,.95);
+  border-color: rgba(16,185,129,.28);
+  backdrop-filter: blur(16px);
+  box-shadow: -4px 0 40px rgba(16,185,129,.08), 0 12px 40px rgba(0,0,0,.55);
+}
+
+/* ── Success state polish ─────────────────────────────────── */
+body.page-lapor .up-report-done {
+  text-align: center;
+  padding: 16px 0;
+}
+
+body.page-lapor .up-report-done h3 {
+  font-size: 1.5rem;
+  color: var(--accent-light);
+  margin-bottom: 8px;
+}
+
+body.page-lapor .up-report-id {
+  color: var(--accent-light) !important;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 860px) {
+  .lapor-hero-inner { grid-template-columns: 1fr; gap: 36px; }
+  .lapor-steps      { flex-direction: row; min-width: unset; flex-wrap: wrap; gap: 16px; }
+  .lapor-step-connector { display: none; }
+  .lapor-ring-anim  { display: none; }
+}
+
+@media (max-width: 540px) {
+  .lapor-hero { padding: 48px 0 36px; }
+  .lapor-title { font-size: 2.2rem; }
+}

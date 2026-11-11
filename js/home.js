@@ -18,28 +18,7 @@
     city.innerHTML = s;
   }
  
-  /* Feed laporan di hero (data contoh) */
-  const feed = document.getElementById('feedList');
-  const items = [
-    ['Jalan berlubang, Jl. Kaliurang', 'pending', 'Pending', 'baru saja'],
-    ['Lampu PJU mati, Gejayan', 'progress', 'Diproses', '3 mnt lalu'],
-    ['Trotoar amblas, Malioboro', 'resolved', 'Resolved', '12 mnt lalu'],
-    ['Halte rusak, Jl. Solo', 'pending', 'Pending', '20 mnt lalu'],
-    ['Drainase tersumbat, Sleman', 'progress', 'Diproses', '31 mnt lalu']
-  ];
-  if (feed) {
-    let i = 0;
-    const add = () => {
-      const [t, c, l, w] = items[i++ % items.length];
-      const li = document.createElement('li');
-      li.innerHTML = `<strong>${t}</strong><span style="display:flex;justify-content:space-between;align-items:center"><span class="badge ${c}">${l}</span><small>${w}</small></span>`;
-      feed.prepend(li);
-      while (feed.children.length > 3) feed.lastChild.remove();
-    };
-    add(); add(); add();
-    if (!matchMedia('(prefers-reduced-motion:reduce)').matches) setInterval(add, 3500);
-  }
- 
+  /* Feed laporan terbaru & angka statistik diisi dari repository: js/features/home/homeLive.js */
   /* Hitung angka statistik saat terlihat */
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (!e.isIntersecting) return;
@@ -47,7 +26,7 @@
     const el = e.target, end = +el.dataset.count, dec = +(el.dataset.dec || 0), t0 = performance.now();
     const tick = t => {
       const p = Math.min((t - t0) / 1400, 1), n = end * (1 - Math.pow(1 - p, 3));
-      el.textContent = n.toLocaleString('id-ID', { minimumFractionDigits: dec, maximumFractionDigits: dec }) + (el.dataset.suffix || '');
+      el.textContent = n.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec }) + (el.dataset.suffix || '');
       if (p < 1) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
@@ -63,7 +42,7 @@
       n = base + (on ? 1 : 0);
       num.textContent = n;
       bar.style.width = Math.min(100, n / 3.2) + '%';
-      btn.textContent = on ? 'Sudah vote' : 'Vote';
+      btn.textContent = on ? 'Voted' : 'Vote';
     });
   });
 })();

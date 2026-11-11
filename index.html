@@ -1,151 +1,225 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>WargaCare - Platform Partisipasi Publik</title>
-  <meta name="description" content="Laporkan jalan rusak, fasilitas umum, dan lampu penerangan. Pantau progres dan tentukan prioritas bersama warga.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/theme.css">
-  <link rel="stylesheet" href="css/home.css">
-</head>
-<body>
-  <div id="app-navbar"></div>
- 
-  <main>
-    <!-- HERO -->
-    <section class="hero" id="beranda">
-      <div class="hero-media" aria-hidden="true">
-        <img class="hero-img" src="assets/hero.jpg" alt="" fetchpriority="high">
-        <div class="hero-shade"></div>
-      </div>
-      <div class="container">
-        <div class="hero-in">
-          <span class="badge">Smart City &amp; Urban Innovation</span>
-          <h1>Kota yang lebih baik dimulai dari laporanmu.</h1>
-          <p class="hero-lead">Tandai jalan rusak, fasilitas umum, dan lampu penerangan di peta. Pantau penanganannya sampai selesai, lalu tentukan bersama warga mana yang diperbaiki lebih dulu.</p>
-          <div class="hero-cta">
-            <a class="btn btn-primary btn-lg" href="lapor.html">Mulai Lapor Sekarang</a>
-            <a class="btn btn-outline btn-lg" href="peta.html">Lihat Peta Laporan</a>
-          </div>
-          <div class="hero-meta">
-            <div><b>12.480</b>laporan masuk</div>
-            <div><b>71%</b>sudah selesai</div>
-            <div><b>34</b>kelurahan aktif</div>
-          </div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UrbanPulse - Public Participation Platform</title>
+    <meta name="description" content="Report road damage, broken streetlights, waste, and flooding. Track progress and decide priorities together with residents." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/shell.css" />
+    <link rel="stylesheet" href="css/home.css" />
+    <link rel="stylesheet" href="css/sections.css" />
+  </head>
+  <body>
+    <div id="app-navbar"></div>
+    <main>
+      <!-- HERO: urban command map -->
+      <section class="hx" id="home">
+        <div class="hx-map">
+          <svg class="hx-svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Schematic city map showing where reports were filed">
+            <defs><pattern id="hxgrid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="rgba(148,163,184,.09)"/></pattern></defs>
+            <rect width="800" height="600" fill="url(#hxgrid)" />
+            <g class="hx-roads">
+              <path class="hx-river" d="M-20 560C140 500 240 520 360 470S580 440 830 540" />
+              <path class="thin" d="M200 140C400 40 640 120 700 300C740 460 560 560 380 530C200 500 100 300 200 140Z" />
+              <path d="M-20 420C150 380 260 330 420 300S700 180 830 150" />
+              <path d="M120 -20C170 160 230 300 300 460S420 620 460 640" />
+              <path d="M-20 180C200 210 380 190 560 260S760 420 830 470" />
+              <path d="M600 -20C590 120 640 260 700 380S760 560 790 640" />
+            </g>
+            <text class="hx-label" x="470" y="120">SLEMAN</text>
+            <text class="hx-label" x="250" y="330">MALIOBORO</text>
+            <text class="hx-label" x="560" y="470">LEMPUYANGAN</text>
+            <g id="hxPins"></g>
+          </svg>
+          <div class="hx-tip" id="hxTip" hidden role="status"></div>
         </div>
-        <aside class="feed hero-in" aria-label="Laporan terbaru">
-          <div class="feed-head"><span>Laporan terbaru</span><span class="badge">Live</span></div>
-          <ul id="feedList"></ul>
-        </aside>
-      </div>
-    </section>
- 
-    <!-- STATISTIK -->
-    <div class="stats">
-      <div class="container grid">
-        <div class="stat"><b data-count="12480">0</b><span>Laporan diterima</span></div>
-        <div class="stat"><b data-count="8.2" data-dec="1" data-suffix=" hari">0</b><span>Rata-rata waktu penanganan</span></div>
-        <div class="stat"><b data-count="71" data-suffix="%">0</b><span>Laporan berstatus Resolved</span></div>
-        <div class="stat"><b data-count="25400">0</b><span>Suara komunitas</span></div>
-      </div>
-    </div>
- 
-    <!-- TENTANG -->
-    <section class="section" id="tentang">
-      <div class="container about">
-        <div>
-          <h2>Laporan warga sering hilang di tengah jalan.</h2>
-          <p>Banyak keluhan infrastruktur berhenti di kolom komentar atau grup chat. WargaCare mengumpulkannya di satu peta, mencatat setiap tahap penanganan, dan membuat prioritas perbaikan bisa dilihat oleh semua orang.</p>
-          <p>Platform ini dibuat sebagai solusi civic tech yang mendukung dua tujuan pembangunan berkelanjutan.</p>
-        </div>
-        <div class="sdg">
-          <div class="card"><span class="sdg-no">9</span><div><h3>Industri, Inovasi, dan Infrastruktur</h3><p>Data lapangan dari warga membantu perawatan infrastruktur menjadi lebih cepat dan tepat sasaran.</p></div></div>
-          <div class="card"><span class="sdg-no">11</span><div><h3>Kota dan Permukiman yang Berkelanjutan</h3><p>Warga ikut menentukan fasilitas publik yang aman, layak, dan mudah diakses.</p></div></div>
-        </div>
-      </div>
-    </section>
- 
-    <!-- FITUR -->
-    <section class="section" id="fitur" style="padding-top:0">
-      <div class="container">
-        <div class="sec-head"><h2>Tiga hal yang membuat laporan berujung perbaikan</h2></div>
- 
-        <div class="feature">
-          <div class="f-text">
-            <h3 style="font-size:var(--fs-xl)">Peta interaktif berbasis lokasi</h3>
-            <p>Setiap laporan menjadi titik di peta dengan kategori dan status yang jelas, sehingga petugas dan warga melihat sebaran masalah sekaligus.</p>
-            <ul class="f-list"><li>Pin otomatis dari lokasi laporan</li><li>Filter jalan rusak, fasilitas umum, dan lampu</li><li>Klik titik untuk membuka detail</li></ul>
-          </div>
-          <div class="mock"><div class="mock-bar"><i></i><i></i><i></i></div>
-            <div class="map">
-              <svg viewBox="0 0 400 300" preserveAspectRatio="none"><path d="M0 220 C120 200 200 120 400 90" stroke="rgba(148,163,184,.35)" stroke-width="6" fill="none"/><path d="M120 300 C140 200 220 160 260 0" stroke="rgba(148,163,184,.25)" stroke-width="4" fill="none"/></svg>
-              <span class="hero-pin warn" style="left:36%;top:54%"></span>
-              <span class="hero-pin" style="left:62%;top:30%;animation-delay:1s"></span>
-              <span class="hero-pin" style="left:78%;top:68%;animation-delay:1.8s"></span>
-              <div class="map-pop"><strong>Jalan berlubang</strong><span class="badge pending">Pending</span></div>
+        <div class="container hx-grid">
+          <div class="hx-copy">
+            <p class="hx-eyebrow">Smart City &amp; Urban Innovation / SDG 9 &middot; 11</p>
+            <h1 class="hx-title">
+              <span class="hx-line"><span>Report it.</span></span>
+              <span class="hx-line"><span>Track it.</span></span>
+              <span class="hx-line hx-acc"><span>Get it fixed.</span></span>
+            </h1>
+            <p class="hx-lead">Pin road damage, broken streetlights, waste, and flooding on a live map. Follow every report through to resolution, and let residents vote on what gets fixed first.</p>
+            <div class="hx-cta">
+              <a class="btn btn-primary btn-lg" href="lapor.html">Report an issue</a>
+              <a class="btn btn-outline btn-lg" href="peta.html">Explore the live map</a>
+            </div>
+            <div class="hero-meta">
+              <div><b data-live-text="total">0</b>reports filed</div>
+              <div><b data-live-text="pct">0%</b>resolved</div>
+              <div><b>34</b>active districts</div>
             </div>
           </div>
-        </div>
- 
-        <div class="feature">
-          <div class="f-text">
-            <h3 style="font-size:var(--fs-xl)">Progres penanganan yang transparan</h3>
-            <p>Dari Pending sampai Resolved, setiap laporan punya status dan riwayat yang bisa dipantau seperti papan kanban.</p>
-            <ul class="f-list"><li>Empat status: Pending, Diproses, Resolved, Ditolak</li><li>Timeline lengkap di halaman detail</li><li>Dashboard ringkasan untuk admin</li></ul>
-          </div>
-          <div class="mock"><div class="mock-bar"><i></i><i></i><i></i></div>
-            <div class="kanban">
-              <div class="kcol"><h4>Pending</h4><div class="kcard">Lampu PJU mati<small>Gejayan</small></div><div class="kcard">Halte rusak<small>Jl. Solo</small></div></div>
-              <div class="kcol"><h4>Diproses</h4><div class="kcard">Jalan berlubang<small>Kaliurang</small></div></div>
-              <div class="kcol"><h4>Resolved</h4><div class="kcard">Trotoar amblas<small>Malioboro</small></div><div class="kcard">Drainase<small>Sleman</small></div></div>
+          <div class="hx-side">
+            <div class="hx-layers" role="group" aria-label="Map layers">
+              <span class="hx-kicker">Layers</span>
+              <button class="hx-chip" type="button" data-cat="all" aria-pressed="true">All</button>
+              <button class="hx-chip" type="button" data-cat="road" aria-pressed="false">Roads</button>
+              <button class="hx-chip" type="button" data-cat="streetlight" aria-pressed="false">Lights</button>
+              <button class="hx-chip" type="button" data-cat="waste" aria-pressed="false">Waste</button>
+              <button class="hx-chip" type="button" data-cat="flood" aria-pressed="false">Flooding</button>
             </div>
+            <aside class="feed hx-feed" aria-label="Latest reports">
+              <div class="feed-head"><span>Latest reports</span><span class="badge">Live</span></div>
+              <ul id="feedList"></ul>
+            </aside>
           </div>
         </div>
- 
-        <div class="feature">
-          <div class="f-text">
-            <h3 style="font-size:var(--fs-xl)">Voting komunitas untuk prioritas</h3>
-            <p>Anggaran perbaikan terbatas. Dengan vote, warga menunjukkan fasilitas mana yang paling mendesak.</p>
-            <ul class="f-list"><li>Satu akun, satu suara per laporan</li><li>Peringkat prioritas diperbarui langsung</li><li>Coba demonya di samping</li></ul>
+      </section>
+
+      <!-- 01 PROBLEM: sticky story stage -->
+      <section class="sx story" id="about" aria-labelledby="story-h">
+        <div class="container story-grid">
+          <div class="story-stage" id="stage" data-step="0">
+            <div class="stage-top">
+              <span class="sx-kicker" id="stageLabel" aria-live="polite">Scattered</span>
+              <div class="seg" role="group" aria-label="Story step"><button type="button" data-go="0" aria-pressed="true">Scattered</button><button type="button" data-go="1" aria-pressed="false">Located</button><button type="button" data-go="2" aria-pressed="false">Pattern</button></div>
+            </div>
+            <div class="stage-art" role="img" aria-label="Illustration: six complaints from different channels move onto a map and four of them form a cluster">
+              <svg class="stage-roads" viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true"><path d="M-10 220C100 200 200 120 410 90"/><path d="M120 310C150 200 230 160 270 -10"/><path d="M-10 90C100 120 200 80 410 200"/></svg>
+              <span class="stage-ring"></span>
+            <span class="chip" style="--sx:18%;--sy:20%;--r:-6deg;--px:60%;--py:36%;--w:96px"><i>Chat photo</i></span>
+            <span class="chip" style="--sx:74%;--sy:16%;--r:5deg;--px:64%;--py:40%;--w:92px"><i>Phone call</i></span>
+            <span class="chip" style="--sx:12%;--sy:72%;--r:4deg;--px:61%;--py:41%;--w:96px"><i>Paper form</i></span>
+            <span class="chip" style="--sx:78%;--sy:78%;--r:-5deg;--px:65%;--py:36%;--w:98px"><i>Social post</i></span>
+            <span class="chip" style="--sx:44%;--sy:12%;--r:-3deg;--px:28%;--py:66%;--w:118px"><i>Word of mouth</i></span>
+            <span class="chip" style="--sx:40%;--sy:84%;--r:6deg;--px:20%;--py:30%;--w:72px"><i>Email</i></span>
+            </div>
+            <p class="stage-cap"><span id="stageCapT"></span><small>Illustration, not live data</small></p>
           </div>
-          <div class="mock"><div class="mock-bar"><i></i><i></i><i></i></div>
-            <div class="vote-item"><strong>Perbaikan jembatan penyeberangan</strong><span><b class="vnum">248</b> <button class="vote-btn" type="button">Vote</button></span><div class="vbar"><i style="width:78%"></i></div></div>
-            <div class="vote-item"><strong>Penerangan jalan Jl. Gejayan</strong><span><b class="vnum">171</b> <button class="vote-btn" type="button">Vote</button></span><div class="vbar"><i style="width:53%"></i></div></div>
-            <div class="vote-item"><strong>Halte bus Jl. Solo</strong><span><b class="vnum">96</b> <button class="vote-btn" type="button">Vote</button></span><div class="vbar"><i style="width:30%"></i></div></div>
+          <ol class="story-steps">
+            <li class="story-step" data-step="0"><p class="sx-kicker">01 / The gap</p><h2 id="story-h">Most reports never meet each other.</h2><p>A photo in a neighborhood chat. A call to the ward office. A comment under a news post. Every one of them is real, and none of them knows the others exist.</p></li>
+            <li class="story-step" data-step="1"><h3>A location gives every report an address.</h3><p>Once a report is pinned, duplicates stand next to each other and a lone complaint stops being invisible. UrbanPulse asks for coordinates before it accepts anything.</p></li>
+            <li class="story-step" data-step="2"><h3>Pins add up to a pattern.</h3><p>A dense cluster shows where a street, a drain, or a light keeps failing. That is what a maintenance planner can act on, and what a resident can point to.</p>
+              <div class="sdg-note">
+                <details><summary>SDG 9: Industry, Innovation and Infrastructure</summary><p>Field reports from residents tell crews where to look first, so repairs can follow evidence instead of guesswork.</p></details>
+                <details><summary>SDG 11: Sustainable Cities and Communities</summary><p>A shared, public record of problems and their status lets residents take part in how their neighborhood is maintained.</p></details>
+              </div></li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 02 to 04: three views of one report -->
+      <section id="features" aria-label="Inside a report">
+        <div class="fx fx-anatomy">
+          <div class="container fx-grid">
+            <div>
+              <p class="sx-kicker">02 / Inside a report</p>
+              <h2>A report is six fields and one click on the map.</h2>
+              <p class="lead">Select a field to read the rule the form enforces for it.</p>
+              <ul class="field-list">
+              <li><button class="field-btn" type="button" data-f="title" aria-pressed="false"><span class="n">01</span><span class="t">Title</span></button></li>
+              <li><button class="field-btn" type="button" data-f="category" aria-pressed="false"><span class="n">02</span><span class="t">Category</span></button></li>
+              <li><button class="field-btn" type="button" data-f="urgency" aria-pressed="false"><span class="n">03</span><span class="t">Urgency</span></button></li>
+              <li><button class="field-btn" type="button" data-f="location" aria-pressed="false"><span class="n">04</span><span class="t">Location</span></button></li>
+              <li><button class="field-btn" type="button" data-f="description" aria-pressed="false"><span class="n">05</span><span class="t">Description</span></button></li>
+              <li><button class="field-btn" type="button" data-f="photo" aria-pressed="false"><span class="n">06</span><span class="t">Photo</span></button></li>
+              </ul>
+            </div>
+            <dl class="fx-card">
+              <div class="card-head"><span>Example report</span><span>Simulated</span></div>
+              <div class="crow" data-f="title"><dt>Title</dt><dd>Pothole on Jl. Kaliurang</dd></div>
+              <div class="crow" data-f="category"><dt>Category</dt><dd>Road Damage</dd></div>
+              <div class="crow" data-f="urgency"><dt>Urgency</dt><dd>High</dd></div>
+              <div class="crow" data-f="location"><dt>Location</dt><dd>-7.74820, 110.38400</dd></div>
+              <div class="crow" data-f="description"><dt>Description</dt><dd>Wide pothole next to the bus shelter. Water collects here after rain.</dd></div>
+              <div class="crow" data-f="photo"><dt>Photo</dt><dd>pothole.jpg, resized in the browser</dd></div>
+              <div class="rule" role="status" aria-live="polite"><strong id="ruleT"></strong><p id="ruleP"></p></div>
+            </dl>
           </div>
         </div>
-      </div>
-    </section>
- 
-    <!-- CARA KERJA -->
-    <section class="section" id="cara-kerja" style="padding-top:0">
-      <div class="container">
-        <div class="sec-head"><h2>Cara kerjanya</h2></div>
-        <div class="grid steps">
-          <div class="step"><h3>Laporkan</h3><p>Isi form, pilih kategori, dan tandai lokasi di peta. Foto bisa dilampirkan.</p></div>
-          <div class="step"><h3>Verifikasi</h3><p>Admin memeriksa laporan dan menetapkan status awal.</p></div>
-          <div class="step"><h3>Pantau</h3><p>Ikuti perkembangan dari Pending hingga Resolved lewat timeline.</p></div>
-          <div class="step"><h3>Tentukan prioritas</h3><p>Warga memberi suara agar perbaikan yang mendesak dikerjakan lebih dulu.</p></div>
+        <div class="fx fx-time">
+          <div class="container">
+            <p class="sx-kicker">03 / What happens next</p>
+            <h2>Every status change leaves a timestamp.</h2>
+            <p class="lead">Pick a report from the sample dataset. This is its history exactly as stored.</p>
+            <div class="pick" id="tlPick" role="group" aria-label="Choose a report"></div>
+            <div class="tl" id="tl" aria-live="polite"></div>
+          </div>
         </div>
-      </div>
-    </section>
- 
-    <!-- CTA -->
-    <section class="section" style="padding-top:0">
-      <div class="container">
-        <div class="cta">
-          <div><h2>Lihat masalah di sekitarmu?</h2><p>Butuh kurang dari dua menit untuk membuat laporan.</p></div>
-          <a class="btn btn-primary btn-lg" href="lapor.html">Buat Laporan</a>
+        <div class="fx fx-prio">
+          <div class="container">
+            <div class="prio-head">
+              <div><p class="sx-kicker">04 / Who goes first</p><h2>Upvotes turn complaints into a queue.</h2><p class="lead">Sample reports ranked by upvotes. Votes cast on this page are a demo and are not saved.</p></div>
+              <label class="toggle"><input type="checkbox" id="prioOpen" checked /> Hide resolved reports</label>
+            </div>
+            <ol class="prio" id="prio"></ol>
+          </div>
         </div>
-      </div>
-    </section>
-  </main>
- 
-  <div id="app-footer"></div>
-  <script src="js/layout.js"></script>
-  <script src="js/home.js"></script>
-</body>
+      </section>
+
+      <!-- 05 ACTION: horizontal hand-off track -->
+      <section class="sx flow-s" id="how-it-works" aria-labelledby="flow-h">
+        <div class="flow" id="flow">
+          <div class="flow-pin" id="flowPin">
+            <div class="container flow-top">
+              <div><p class="sx-kicker">05 / Who does what</p><h2 id="flow-h">One report, four hand-offs.</h2></div>
+              <div class="flow-ctl">
+                <div class="seg" id="roleSeg" role="group" aria-label="Highlight a role"><button type="button" data-role="all" aria-pressed="true">All</button><button type="button" data-role="resident" aria-pressed="false">Resident</button><button type="button" data-role="platform" aria-pressed="false">Platform</button><button type="button" data-role="officer" aria-pressed="false">Officer</button></div>
+                <p class="flow-count" aria-hidden="true"><b id="flowN">01</b> / 04</p>
+              </div>
+            </div>
+            <div class="flow-track" id="flowTrack">
+            <article class="st" data-role="resident"><span class="no">01</span><p class="role">Resident</p><h3>Pin the spot</h3><p>Click the map and the coordinates are captured. A draggable pin lets you correct it before you send anything.</p></article>
+            <article class="st" data-role="platform"><span class="no">02</span><p class="role">Platform</p><h3>Record it</h3><p>The form is validated, a report ID and timestamp are generated, and the first timeline entry is written. The marker appears on the map immediately.</p></article>
+            <article class="st" data-role="officer"><span class="no">03</span><p class="role">Officer, simulated</p><h3>Update it</h3><p>Status changes go through the same shared store as new reports, so the map, the timeline, and the counts all move together. Officer mode in this build is a simulation.</p></article>
+            <article class="st" data-role="resident platform officer"><span class="no">04</span><p class="role">Everyone</p><h3>Read the pattern</h3><p>Filter the map by category and status, rank reports by upvotes, and compare groups in the dataset. The pattern is the product.</p></article>
+            </div>
+            <div class="flow-bar" aria-hidden="true"><i id="flowBar"></i></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 IMPACT: live dataset -->
+      <section class="sx impact" id="impact" aria-labelledby="impact-h">
+        <div class="container impact-grid">
+          <div>
+            <p class="sx-kicker">06 / The pattern</p>
+            <h2 id="impact-h">What the sample dataset says so far.</h2>
+            <p>Simulated reports, counted in your browser. File one on the map and these bars move.</p>
+            <dl class="kpis">
+              <div><dt>Reports</dt><dd id="kpiTotal">0</dd></div>
+              <div><dt>Resolved</dt><dd id="kpiPct">0%</dd></div>
+              <div><dt>Avg. days to resolve</dt><dd id="kpiAvg">n/a</dd></div>
+              <div><dt>Open, high urgency</dt><dd id="kpiHot">0</dd></div>
+            </dl>
+          </div>
+          <div>
+            <div class="seg" id="impactSeg" role="group" aria-label="Group reports by"><button type="button" data-g="category" aria-pressed="true">Category</button><button type="button" data-g="status" aria-pressed="false">Status</button><button type="button" data-g="urgency" aria-pressed="false">Urgency</button></div>
+            <ul class="bars" id="bars" aria-live="polite"></ul>
+            <p class="bars-foot">Simulated data, n = <span id="barsN">0</span> reports.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 CTA -->
+      <section class="sx cta-x" id="cta" aria-labelledby="cta-h">
+        <div class="container">
+          <p class="sx-kicker">07 / Your turn</p>
+          <h2 class="cta-h" id="cta-h"><span>Seen it?</span><span>Check it.</span><span>File it.</span></h2>
+          <div class="cta-ctl">
+            <p id="ctaQ">What did you see? Choose a category and we will open the map on it.</p>
+            <div class="seg" id="ctaSeg" role="group" aria-labelledby="ctaQ"><button type="button" data-cat="road" aria-pressed="false">Road damage</button><button type="button" data-cat="streetlight" aria-pressed="false">Broken streetlights</button><button type="button" data-cat="waste" aria-pressed="false">Waste</button><button type="button" data-cat="flood" aria-pressed="false">Flooding</button></div>
+            <div class="cta-links"><a class="btn btn-outline btn-lg" id="ctaMap" href="peta.html">Check the map first</a><a class="btn btn-primary btn-lg" href="lapor.html">File a new report</a></div>
+          </div>
+        </div>
+        <div class="marq" aria-hidden="true"><div class="marq-track"><span>Road damage</span><span>Broken streetlights</span><span>Waste</span><span>Flooding</span><span>Road damage</span><span>Broken streetlights</span><span>Waste</span><span>Flooding</span></div></div>
+      </section>
+    </main>
+
+    <div id="app-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script type="module" src="js/features/home/homeLive.js"></script>
+    <script type="module" src="js/features/home/homeStory.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/home-motion.js"></script>
+  </body>
 </html>

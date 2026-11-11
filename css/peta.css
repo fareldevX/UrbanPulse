@@ -1,0 +1,323 @@
+/* ==========================================================
+   peta.css — Command Center theme for peta.html
+   Blue / purple accent over dark space background.
+   ========================================================== */
+
+/* ── Page-level accent overrides ─────────────────────────── */
+body.page-peta {
+  --page-accent:      #818cf8;    /* indigo-400 */
+  --page-accent-lt:   #a5b4fc;    /* indigo-300 */
+  --page-accent-dk:   #6366f1;    /* indigo-500 */
+  --page-accent-soft: rgba(129,140,248,.12);
+  --page-accent-ring: rgba(165,180,252,.40);
+  --page-secondary:   #38bdf8;    /* sky-400 */
+  --page-purple:      #c084fc;    /* purple-400 */
+}
+
+/* ── Hero wrapper ─────────────────────────────────────────── */
+.peta-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 72px 0 60px;
+  background: linear-gradient(
+    160deg,
+    rgba(11,17,32,1)   0%,
+    rgba(15,23,42,.97) 40%,
+    rgba(17,24,56,.95) 80%,
+    rgba(11,17,32,1)   100%
+  );
+  border-bottom: 1px solid rgba(129,140,248,.18);
+}
+
+/* ── Animated grid background ────────────────────────────── */
+.peta-hero-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.peta-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(129,140,248,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(129,140,248,.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: peta-grid-pulse 8s ease-in-out infinite;
+}
+
+@keyframes peta-grid-pulse {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; }
+}
+
+/* ── Ambient orbs ────────────────────────────────────────── */
+.peta-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  will-change: transform;
+}
+
+.peta-orb-1 {
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(99,102,241,.22) 0%, transparent 70%);
+  top: -120px;
+  right: -80px;
+  animation: peta-orb-drift 12s ease-in-out infinite alternate;
+}
+
+.peta-orb-2 {
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(56,189,248,.15) 0%, transparent 70%);
+  bottom: -100px;
+  left: 15%;
+  animation: peta-orb-drift 16s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes peta-orb-drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(40px, 20px) scale(1.08); }
+}
+
+/* ── Scanline sweep ─────────────────────────────────────── */
+.peta-scanline {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(129,140,248,.015) 3px,
+    rgba(129,140,248,.015) 4px
+  );
+  pointer-events: none;
+}
+
+/* ── Live badge ─────────────────────────────────────────── */
+.peta-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #34d399;
+  background: rgba(16,185,129,.1);
+  border: 1px solid rgba(52,211,153,.3);
+  border-radius: 999px;
+  padding: 5px 14px;
+  margin-bottom: 20px;
+  width: fit-content;
+}
+
+.peta-live-badge i {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 0 0 rgba(52,211,153,.5);
+  animation: peta-pulse 2s ease-out infinite;
+}
+
+@keyframes peta-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(52,211,153,.6); }
+  70%  { box-shadow: 0 0 0 8px rgba(52,211,153,.0); }
+  100% { box-shadow: 0 0 0 0 rgba(52,211,153,.0); }
+}
+
+/* ── Hero layout ─────────────────────────────────────────── */
+.peta-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.peta-hero-top {
+  margin-bottom: 48px;
+}
+
+/* ── Title ───────────────────────────────────────────────── */
+.peta-title {
+  margin: 0 0 14px;
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -.03em;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.peta-title-line {
+  display: block;
+  font-size: clamp(2.2rem, 5.5vw, 4rem);
+  color: var(--text);
+  clip-path: inset(0 100% 0 0);  /* revealed by GSAP */
+}
+
+.peta-title-accent {
+  background: linear-gradient(135deg, var(--page-accent-lt) 0%, var(--page-purple) 60%, var(--page-secondary) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.peta-subtitle {
+  font-size: clamp(.9rem, 1.5vw, 1.1rem);
+  color: var(--text-muted);
+  max-width: 56ch;
+  line-height: 1.65;
+  margin: 0;
+  opacity: 0;  /* revealed by GSAP */
+  transform: translateY(16px);
+}
+
+/* ── Stats grid ─────────────────────────────────────────── */
+.peta-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.peta-stat {
+  position: relative;
+  overflow: hidden;
+  background: rgba(19,28,49,.7);
+  border: 1px solid rgba(129,140,248,.18);
+  border-radius: 16px;
+  padding: 24px 20px;
+  backdrop-filter: blur(12px);
+  cursor: default;
+  transition: border-color .3s, transform .3s;
+  opacity: 0;             /* revealed by GSAP */
+  transform: translateY(32px);
+}
+
+.peta-stat:hover {
+  border-color: rgba(165,180,252,.4);
+  transform: translateY(-3px) !important;
+}
+
+.peta-stat-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.peta-stat-num {
+  display: block;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -.04em;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(135deg, #fff 30%, var(--page-accent-lt) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.peta-stat-label {
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.peta-stat-bg-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 20% 80%, rgba(129,140,248,.12) 0%, transparent 65%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .4s;
+}
+
+.peta-stat:hover .peta-stat-bg-glow {
+  opacity: 1;
+}
+
+/* stat-specific accent colors */
+.peta-stat[data-target="total"]     .peta-stat-num { background: linear-gradient(135deg,#fff 30%, #a5b4fc 100%); -webkit-background-clip:text; background-clip:text; }
+.peta-stat[data-target="pending"]   .peta-stat-num { background: linear-gradient(135deg,#fff 30%, #fbbf24 100%); -webkit-background-clip:text; background-clip:text; }
+.peta-stat[data-target="resolved"]  .peta-stat-num { background: linear-gradient(135deg,#fff 30%, #34d399 100%); -webkit-background-clip:text; background-clip:text; }
+.peta-stat[data-target="inprogress"] .peta-stat-num { background: linear-gradient(135deg,#fff 30%, #38bdf8 100%); -webkit-background-clip:text; background-clip:text; }
+
+/* ── Map stage enhancements (peta-page specific) ─────────── */
+body.page-peta .up-map {
+  border: 1px solid rgba(129,140,248,.24);
+  box-shadow: 0 0 0 1px rgba(129,140,248,.08), 0 20px 48px rgba(0,0,0,.45);
+}
+
+body.page-peta .up-map-stage {
+  border-top: 1px solid rgba(129,140,248,.18);
+}
+
+body.page-peta .up-map-head {
+  background: linear-gradient(180deg, rgba(17,24,56,.5) 0%, transparent 100%);
+  padding-top: 28px;
+}
+
+/* ── Legend enhancement ─────────────────────────────────── */
+body.page-peta .up-map-legend {
+  background: rgba(13,20,40,.88);
+  border-color: rgba(129,140,248,.2);
+  backdrop-filter: blur(14px);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+/* ── Filter chip enhancements ───────────────────────────── */
+body.page-peta .up-map-chip {
+  position: relative;
+  transition: color .2s, border-color .2s, background .2s, transform .15s;
+  overflow: hidden;
+}
+
+body.page-peta .up-map-chip::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--page-accent-soft), transparent);
+  opacity: 0;
+  transition: opacity .25s;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+body.page-peta .up-map-chip:hover::after { opacity: 1; }
+
+body.page-peta .up-map-chip[aria-pressed="true"] {
+  background: linear-gradient(135deg, rgba(99,102,241,.25), rgba(129,140,248,.15));
+  border-color: var(--page-accent);
+  color: var(--page-accent-lt);
+  box-shadow: 0 0 12px rgba(129,140,248,.2);
+}
+
+/* ── Detail panel gloss ─────────────────────────────────── */
+body.page-peta .up-detail {
+  background: rgba(19,28,49,.92);
+  border-color: rgba(129,140,248,.22);
+  backdrop-filter: blur(16px);
+  box-shadow: -4px 0 40px rgba(99,102,241,.12), 0 12px 40px rgba(0,0,0,.55);
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .peta-stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 540px) {
+  .peta-hero { padding: 48px 0 40px; }
+  .peta-stats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .peta-stat  { padding: 18px 14px; }
+}
