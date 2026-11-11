@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Analytics - UrbanPulse</title>
+    <meta name="description" content="Live data summary of the UrbanPulse sample reports: totals, resolution rate, breakdowns by category, status and urgency, a daily trend, the most upvoted reports, and the full report table." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/shell.css" />
+    <link rel="stylesheet" href="css/analitik.css" />
+  </head>
+  <body class="page-analitik">
+    <div id="app-navbar"></div>
+    <main>
+      <section class="an-hero">
+        <div class="container">
+          <p class="an-kicker">Reporting data</p>
+          <h1 class="an-title">Analytics</h1>
+          <p class="an-lead">Every figure below is counted live from the reports saved in this browser, and the starting set is a 12-report simulation, so read the numbers as sample data rather than a live city feed.</p>
+        </div>
+      </section>
+
+      <section class="an-sec">
+        <div class="container">
+          <div class="an-kpis">
+            <div class="an-kpi">
+              <span class="an-kpi-num" id="an-total">0</span>
+              <span class="an-kpi-label">Total reports</span>
+              <span class="an-kpi-sub">Simulated and user-submitted</span>
+            </div>
+            <div class="an-kpi">
+              <span class="an-kpi-num" id="an-resolved">0%</span>
+              <span class="an-kpi-label">Resolved</span>
+              <span class="an-kpi-sub" id="an-resolved-sub">0 of 0 reports</span>
+            </div>
+            <div class="an-kpi">
+              <span class="an-kpi-num" id="an-avgdays">n/a</span>
+              <span class="an-kpi-label">Average days to resolve</span>
+              <span class="an-kpi-sub" id="an-avgdays-sub">No resolved reports yet</span>
+            </div>
+            <div class="an-kpi">
+              <span class="an-kpi-num" id="an-highopen">0</span>
+              <span class="an-kpi-label">High urgency, still open</span>
+              <span class="an-kpi-sub">Pending or in progress</span>
+            </div>
+          </div>
+          <p class="an-empty an-empty--banner" id="an-empty" hidden>No reports are stored in this browser yet. Add one from the report form and this page fills in automatically.</p>
+        </div>
+      </section>
+
+      <section class="an-sec">
+        <div class="container">
+          <div class="an-sec-head">
+            <h2>Breakdowns</h2>
+            <p>Counts and share of the current dataset, per group. Every bar is that group's share of all reports.</p>
+          </div>
+          <div class="an-grid">
+            <div class="card an-panel">
+              <h3>By category</h3>
+              <p class="an-panel-note">Road, streetlight, waste and flooding reports.</p>
+              <div class="an-bars" id="an-cat"></div>
+            </div>
+            <div class="card an-panel">
+              <h3>By status</h3>
+              <p class="an-panel-note">Where each report sits in the workflow.</p>
+              <div class="an-bars" id="an-status"></div>
+            </div>
+            <div class="card an-panel">
+              <h3>By urgency</h3>
+              <p class="an-panel-note">How the reporter rated each issue.</p>
+              <div class="an-bars" id="an-urg"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="an-sec">
+        <div class="container">
+          <div class="card an-panel">
+            <div class="an-sec-head">
+              <h2>Reports over time</h2>
+              <p>Reports received per day, grouped in UTC from each report's creation time.</p>
+            </div>
+            <div class="an-trend" id="an-trend"></div>
+            <p class="an-note" id="an-trend-note"></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="an-sec">
+        <div class="container">
+          <div class="card an-panel">
+            <div class="an-sec-head">
+              <h2>Most upvoted reports</h2>
+              <p>The five reports with the most upvotes in this browser.</p>
+            </div>
+            <ol class="an-rank" id="an-rank"></ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="an-sec">
+        <div class="container">
+          <div class="card an-panel">
+            <div class="an-table-head">
+              <div>
+                <h2>All reports</h2>
+                <p class="an-note" id="an-count"></p>
+              </div>
+              <label class="an-sort">
+                <span>Sort by</span>
+                <select id="an-sort" class="select">
+                  <option value="newest">Newest first</option>
+                  <option value="oldest">Oldest first</option>
+                  <option value="votes">Most upvotes</option>
+                  <option value="urgency">Urgency (high first)</option>
+                  <option value="category">Category A to Z</option>
+                </select>
+              </label>
+            </div>
+            <div class="an-table-wrap">
+              <table class="an-table">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Urgency</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Upvotes</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Owner</th>
+                  </tr>
+                </thead>
+                <tbody id="an-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <div id="app-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="js/layout.js"></script>
+    <script type="module" src="js/analitik-page.js"></script>
+  </body>
+</html>
